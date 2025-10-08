@@ -6,8 +6,8 @@ import {
   query,
   orderBy 
 } from 'firebase/firestore';
-import { db } from '@/config/firebase';
-import type { FeaturedProject, UseProjectsReturn } from '@/types';
+import { db } from '../config/firebase';
+import type { FeaturedProject, UseProjectsReturn } from '../types';
 
 // Cache key for localStorage
 const CACHE_KEY = 'featured_projects_cache';

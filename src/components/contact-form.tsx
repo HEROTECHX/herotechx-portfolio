@@ -1,11 +1,15 @@
 import  { useState, useEffect, type ChangeEvent, type FormEvent, type JSX } from "react";
 import { useForm, ValidationError } from '@formspree/react';
-import { Label, Input, BottomGradient, LabelInputContainer } from "@/components/index";
-import { cn } from "@/lib/utils";
+import { Label } from "../components/ui/label";
+import { Input } from "../components/ui/input";
+import { BottomGradient } from "../components/ui/bottom-gradient";
+import { LabelInputContainer } from "../components/ui/label-input-container";
+import { TextArea } from "../components/ui/textarea";
+import { cn } from "../lib/utils";
 import { Send, Copy, Check } from "lucide-react";
 import { IconBrandFiverr, IconBrandGithub, IconBrandLinkedin, IconBrandUpwork } from "@tabler/icons-react";
-import { useToast } from "@/hooks/use-toast";
-import type { FormData, FormErrors, FormspreeError } from "@/types";
+import { useToast } from "../hooks/use-toast";
+import type { FormData, FormErrors, FormspreeError } from "../types";
 
 
 export function ContactForm(): JSX.Element {
@@ -207,7 +211,7 @@ export function ContactForm(): JSX.Element {
 
           <LabelInputContainer className="mb-8">
             <Label htmlFor="message">Message</Label>
-            <textarea
+            <TextArea
               id="message"
               name="message"
               placeholder="Tell me about your project..."

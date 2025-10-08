@@ -5,8 +5,8 @@ import {
   query,
   limit
 } from 'firebase/firestore';
-import { db } from '@/config/firebase';
-import type { AboutUser, CachedData } from '@/types';
+import { db } from '../config/firebase';
+import type { AboutUser, CachedData } from '../types';
 
 const CACHE_KEY = 'aboutUser_cache';
 const CACHE_TIMESTAMP_KEY = 'aboutUser_cache_timestamp';

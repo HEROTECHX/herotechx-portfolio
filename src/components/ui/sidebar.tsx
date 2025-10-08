@@ -1,10 +1,9 @@
-"use client";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 import { IconMenu2, IconX } from "@tabler/icons-react";
-import { SidebarProvider } from "@/provider/sidebar-provider";
-import { useSidebar } from "@/hooks/use-sidebar";
-import type { Link } from "@/types";
+import { SidebarProvider } from "../../provider/sidebar-provider";
+import { useSidebar } from "../../hooks/use-sidebar";
+import type { Link } from "../../types";
 
 export const Sidebar = ({
   children,

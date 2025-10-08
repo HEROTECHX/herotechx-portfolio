@@ -1,4 +1,4 @@
-import { SidebarContext } from "@/context/sidebar-context";
+import { SidebarContext } from "../context/sidebar-context";
 import { useState } from "react";
 
 export const SidebarProvider: React.FC<{

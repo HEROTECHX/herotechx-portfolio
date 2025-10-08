@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Edit2, User, Save, X, Plus, Trash2 } from 'lucide-react'
-import { useToast } from '@/hooks/use-toast'
-import { useAboutUserManager } from '@/hooks/use-about-user-manager'
-import type { CreateAboutUserData } from '@/types'
+import { useToast } from '../hooks/use-toast'
+import { useAboutUserManager } from '../hooks/use-about-user-manager'
+import type { CreateAboutUserData } from '../types'
 
 export function AboutUserManager() {
   const { aboutUser, loading, error, saveAboutUser } = useAboutUserManager()

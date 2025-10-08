@@ -12,8 +12,8 @@ import {
   Timestamp,
   FirestoreError
 } from 'firebase/firestore';
-import { db } from '@/config/firebase';
-import type { FeaturedProject, CreateProjectData, UpdateProjectData } from '@/types';
+import { db } from '../config/firebase';
+import type { FeaturedProject, CreateProjectData, UpdateProjectData } from '../types';
 
 interface ProjectManagerState {
   projects: FeaturedProject[];

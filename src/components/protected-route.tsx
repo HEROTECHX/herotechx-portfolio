@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import { useAuth } from '@/context/auth-context';
-import { SignInModal } from '@/components/index';
+import { useAuth } from '../context/auth-context';
+import { SignInModal } from '../components/sign-in-modal';
 
 interface ProtectedRouteProps {
   children: ReactNode;

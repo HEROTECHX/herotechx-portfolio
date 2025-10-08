@@ -11,31 +11,9 @@ import {
   serverTimestamp,
   Timestamp
 } from 'firebase/firestore';
-import { db } from '@/config/firebase';
+import { db } from '../config/firebase';
+import type { CreateTestimonialData, Testimonial } from '../types';
 
-export interface Testimonial {
-  id: string;
-  clientName: string;
-  company?: string;
-  role?: string;
-  project?: string;
-  message: string;
-  rating?: number;
-  image?: string;
-  approved?: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export interface CreateTestimonialData {
-  clientName: string;
-  company?: string;
-  role?: string;
-  project?: string;
-  message: string;
-  rating?: number;
-  image?: string;
-}
 
 export interface UpdateTestimonialData extends Partial<CreateTestimonialData> {
   approved?: boolean;

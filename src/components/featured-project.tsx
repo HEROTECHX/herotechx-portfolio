@@ -1,5 +1,6 @@
-import { useFeaturedProject } from "@/hooks/use-featured-project";
-import { ProjectCard } from "@/components/index";
+import { useFeaturedProject } from "../hooks/use-featured-project";
+import { ProjectCard } from "../components/project-card";
+import { motion } from "motion/react";
 
 export function FeaturedProject() {
   const { projects, loading, error, isOnline, usingCache, refetch } = useFeaturedProject();
@@ -91,11 +92,20 @@ export function FeaturedProject() {
       )}
 
       {/* Quote */}
-      <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-lg p-4 border border-purple-500/20 mt-6">
-        <p className="text-white/70 text-sm italic">
-          "Constantly learning and adapting to new technologies. The journey of a developer never ends!"
-        </p>
-      </div>
+       <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 }}
+                whileHover={{ scale: 1.01 }}
+                className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
+              >
+                <motion.p 
+                  className="text-white/60 italic text-center relative"
+                  whileHover={{ scale: 1.02 }}
+                  >
+                  "Constantly learning and adapting to new technologies. The journey of a developer never ends!"
+                </motion.p>
+              </motion.div>
     </div>
   );
 }

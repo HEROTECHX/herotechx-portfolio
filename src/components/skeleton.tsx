@@ -267,6 +267,55 @@ export const ExperienceProjectSkeleton = (): JSX.Element => {
   );
 };
 
+export const TestimonialSkeleton: React.FC = () => {
+  const variants = {
+    initial: { x: 0 },
+    animate: { x: 10, rotate: 5, transition: { duration: 0.2 } },
+  };
+  const variantsSecond = {
+    initial: { x: 0 },
+    animate: { x: -10, rotate: -5, transition: { duration: 0.2 } },
+  };
+
+  return (
+    <motion.div
+      initial="initial"
+      whileHover="animate"
+      className="flex flex-1 w-full h-full min-h-[6rem] flex-col space-y-2"
+    >
+      <motion.div
+        variants={variants}
+        className="flex flex-row rounded-2xl border border-white/20 p-2 items-start space-x-2 bg-white/10 backdrop-blur-sm"
+      >
+        <div className="rounded-full h-8 w-8 md:h-10 md-w-10 bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
+        <div>
+          <div className="flex text-yellow-400 text-xs mb-1">
+            {"★".repeat(5)}
+          </div>
+          <p className="text-xs text-white/70">
+            "Outstanding React development skills and great communication throughout the project!"
+          </p>
+        </div>
+      </motion.div>
+      
+      <motion.div
+        variants={variantsSecond}
+        className="flex flex-row rounded-2xl border border-white/20 p-2 items-start space-x-2 bg-white/10 backdrop-blur-sm"
+      >
+        <div className="rounded-full h-8 w-8 md:h-10 md-w-10 bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
+        <div>
+          <div className="flex text-yellow-400 text-xs mb-1">
+            {"★".repeat(5)}
+          </div>
+          <p className="text-xs text-white/70">
+            "Reliable, talented, and delivered exactly what we needed. Will work with again!"
+          </p>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 export const ConnectSkeleton: React.FC = () => {
   const variants = {
     initial: { x: 0 },

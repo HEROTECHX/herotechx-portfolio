@@ -1,15 +1,5 @@
 import { toast as sonnerToast } from "sonner";
-
-interface ToastOptions {
-  duration?: number;
-  position?: "top-right" | "top-left" | "bottom-right" | "bottom-left" | "top-center" | "bottom-center";
-}
-
-interface ToastMessage {
-  title?: string;
-  description?: string;
-  type?: "success" | "error" | "info" | "warning";
-}
+import type { ToastMessage, ToastOptions } from "../types";
 
 export const useToast = () => {
   const showToast = ({ title, description, type = "info" }: ToastMessage, options?: ToastOptions) => {

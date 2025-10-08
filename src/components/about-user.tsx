@@ -1,4 +1,4 @@
-import { useAboutUser } from '@/hooks/use-about-user'
+import { useAboutUser } from '../hooks/use-about-user'
 import { motion } from 'motion/react'
 
 export function AboutUser() {
@@ -239,7 +239,7 @@ export function AboutUser() {
             className="text-white/60 italic text-center relative"
             whileHover={{ scale: 1.02 }}
           >
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem, dolore?
+          "Code is poetry in motion, and I strive to write verses that both machines and humans can appreciate."
           </motion.p>
         </motion.div>
       

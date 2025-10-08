@@ -1,4 +1,4 @@
-import type { ProjectCardProps } from "@/types";
+import type { ProjectCardProps } from "../types";
 import { IconBrandGithub } from "@tabler/icons-react";
 
 export function ProjectCard({ 
@@ -82,10 +82,11 @@ export function ProjectCard({
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white/70 text-sm rounded transition-colors text-center"
-            >
-              <IconBrandGithub />
-            </a>
+              className="text-gray-600 hover:text-gray-800 text-sm font-medium flex items-center gap-1"
+                                >
+                                  <IconBrandGithub size={16} />
+                                  GitHub
+                                </a>
           )}
         </div>
       </div>

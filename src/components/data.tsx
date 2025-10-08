@@ -1,8 +1,10 @@
-import type { BentoData } from "@/types";
+import type { BentoData } from "../types";
 import { IconBoxAlignRightFilled, IconSignature, IconTableColumn } from "@tabler/icons-react";
-import { AboutMeSkeleton, ConnectSkeleton, FeaturedProjectSkeleton } from "@/components/skeleton";
+import { AboutMeSkeleton, ConnectSkeleton, FeaturedProjectSkeleton, TestimonialSkeleton } from "../components/skeleton";
 import { Testimonials } from "./testimonials";
-import { AboutUser, FeaturedProject, ContactForm } from "@/components/index";
+import { AboutUser } from "../components/about-user";
+import { FeaturedProject } from "../components/featured-project";
+import { ContactForm } from "../components/contact-form";
 
 export const bentoData: BentoData[] = [
   {
@@ -36,7 +38,7 @@ export const bentoData: BentoData[] = [
         read what others say about me.
       </span>
     ),
-    header: <AboutMeSkeleton />,
+    header: <TestimonialSkeleton />,
     className: "md:col-span-1",
     icon: <IconSignature className="h-4 w-4 text-neutral-300" />,
     content: <Testimonials />

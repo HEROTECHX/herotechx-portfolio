@@ -1,13 +1,13 @@
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { Trash2, Edit2, Check, X, Star, Eye, EyeOff } from "lucide-react";
-import { useTestimonials } from "@/hooks/use-testimonials";
+import { useTestimonials } from "../hooks/use-testimonials";
 import { LabelInputContainer } from "./ui/label-input-container";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import type { EditFormData, Testimonial } from "@/types";
-import { useToast } from "@/hooks/use-toast";
+import type { EditFormData, Testimonial } from "../types";
+import { useToast } from "../hooks/use-toast";
 
 
 export function TestimonialsManager() {
@@ -135,9 +135,10 @@ export function TestimonialsManager() {
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-neutral-400">
-          Loading testimonials...
+        <div className="flex justify-center items-center min-h-screen">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
         </div>
+        
       ) : filteredTestimonials.length === 0 ? (
         <div className="text-center py-12 text-neutral-400">
           No testimonials found.

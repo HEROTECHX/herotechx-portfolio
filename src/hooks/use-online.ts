@@ -1,15 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect, useCallback } from 'react'
+import type { NetworkStatus, NetworkStrength } from '../types'
 
-export type NetworkStrength = 'excellent' | 'good' | 'fair' | 'poor' | 'offline'
-
-interface NetworkStatus {
-  isOnline: boolean
-  strength: NetworkStrength
-  effectiveType: string | null
-  downlink: number | null
-  rtt: number | null
-}
 
 export function useOnline() {
   const [networkStatus, setNetworkStatus] = useState<NetworkStatus>({

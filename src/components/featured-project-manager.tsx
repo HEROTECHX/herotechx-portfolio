@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
-import type { FeaturedProject, CreateProjectData } from '@/types'
+import type { FeaturedProject, CreateProjectData } from '../types'
 import { IconBrandGithub } from '@tabler/icons-react'
-import { LabelInputContainer, Label, Input, TextArea } from '@/components/index'
 import { motion, AnimatePresence } from 'motion/react'
-import { useFeaturedProjectManager } from '@/hooks/use-featured-project-manager'
+import { useFeaturedProjectManager } from '../hooks/use-featured-project-manager'
+import { useToast } from '../hooks/use-toast'
+import { LabelInputContainer } from './ui/label-input-container'
+import { Label } from './ui/label'
+import { Input } from './ui/input'
+import { TextArea } from './ui/textarea'
 
 const defaultProjectData: CreateProjectData = {
   title: '',
@@ -27,6 +31,7 @@ export function FeaturedProjectManager() {
   const [tempTech, setTempTech] = useState('')
   const [tempFeature, setTempFeature] = useState('')
   const [tempResult, setTempResult] = useState('')
+  const {successToast, errorToast} = useToast()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
@@ -68,9 +73,10 @@ export function FeaturedProjectManager() {
       }
       
       resetForm()
+      successToast('saved project')
     } catch (error) {
       console.error('Error saving project:', error)
-      alert('Error saving project. Please try again.')
+      errorToast('Error saving project. Please try again.')
     }
   }
 

@@ -1,10 +1,17 @@
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
-import { LabelInputContainer, Input, BottomGradient, Loading, Label, StarRating, TextArea } from "@/components/index";
-import { Send, X, Star } from "lucide-react";
-import { useTestimonials } from "@/hooks/use-testimonials";
-import { useToast } from "@/hooks/use-toast";
+import { LabelInputContainer } from "../components/ui/label-input-container";
+import { Input } from "../components/ui/input";
+import { BottomGradient } from "../components/ui/bottom-gradient";
+import { Loading } from "../components/loading";
+import { Label } from "../components/ui/label";
+import { StarRating } from "../components/star-rating";
+import { TextArea } from "../components/ui/textarea";
+
+import { X, Star } from "lucide-react";
+import { useTestimonials } from "../hooks/use-testimonials";
+import { useToast } from "../hooks/use-toast";
 import { CompactFileUpload } from "./compact-file-upload";
 
 export function Testimonials() {
@@ -183,6 +190,22 @@ export function Testimonials() {
                   </motion.div>
                 ))
               )}
+
+              {/* Quote */}
+                     <motion.div 
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.9 }}
+                              whileHover={{ scale: 1.01 }}
+                              className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
+                            >
+                              <motion.p 
+                                className="text-white/60 italic text-center relative"
+                                whileHover={{ scale: 1.02 }}
+                                >
+                                "Transformed our vision into reality with exceptional skill!"
+                              </motion.p>
+                            </motion.div>
             </div>
           </motion.div>
         ) : (
@@ -302,15 +325,15 @@ export function Testimonials() {
                     className={cn(
                       "group/btn relative flex-1 h-12 rounded-md font-medium text-white",
                       "shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]",
-                      "bg-gradient-to-br from-black to-neutral-600 hover:shadow-lg transition-all duration-200",
+                      "bg-gradient-to-br from-black/30 to-neutral-600 hover:shadow-lg transition-all duration-200",
                       submitting && "opacity-50 cursor-not-allowed"
                     )}
                     type="button"
                     disabled={submitting}
                   >
                     <span className="flex items-center justify-center space-x-2">
-                      <Send className="h-4 w-4" />
-                      <span>{!submitting ? <Loading /> : 'Submit Review'}</span>
+                      {/* <Send className="h-4 w-4" /> */}
+                      <span>{submitting ? <Loading /> : 'Submit Review'}</span>
                     </span>
                     <BottomGradient />
                   </button>

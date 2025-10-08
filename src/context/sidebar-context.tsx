@@ -1,4 +1,4 @@
-import type { SidebarContextProps } from "@/types";
+import type { SidebarContextProps } from "../types";
 import { createContext } from "react";
 
 export const SidebarContext = createContext<SidebarContextProps | undefined>(

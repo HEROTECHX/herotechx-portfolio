@@ -4,19 +4,18 @@ import {
   IconArrowLeft,
   IconBrandTabler,
   IconDevicesCheck,
-  IconSettings,
   IconUserBolt,
 } from "@tabler/icons-react";
-import type { Link } from "@/types";
-import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import { FeaturedProjectManager } from "@/components/featured-project-manager";
-import { AboutUserManager } from "@/components/about-user-manager";
-import { useAuth } from "@/context/auth-context";
-import { TestimonialsManager } from "@/components/testimonials-manager";
+import type { Link } from "../types";
+import { Sidebar, SidebarBody, SidebarLink } from "../components/ui/sidebar";
+import { FeaturedProjectManager } from "../components/featured-project-manager";
+import { AboutUserManager } from "../components/about-user-manager";
+import { useAuth } from "../context/auth-context";
+import { TestimonialsManager } from "../components/testimonials-manager";
 
 
 export function AdminPage() {
-  const { user, loading, logout } = useAuth()
+  const { user, logout } = useAuth()
   const [activeTab, setActiveTab] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
   const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
@@ -88,10 +87,10 @@ export function AdminPage() {
             <div>
               <SidebarLink
                 link={{
-                  label: user?.displayName || user?.isAnonymous,
+                  label: 'Nuhu Ibrahim',
                   icon: (
                     <img
-                      src={user?.photoURL}
+                      src={user?.photoURL || ''}
                       className="h-7 w-7 shrink-0 rounded-full"
                       width={50}
                       height={50}

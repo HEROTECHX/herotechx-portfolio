@@ -189,3 +189,47 @@ export interface FormspreeError {
   code: string;
   message: string;
 }
+export type NetworkStrength = 'excellent' | 'good' | 'fair' | 'poor' | 'offline'
+
+export interface NetworkStatus {
+  isOnline: boolean
+  strength: NetworkStrength
+  effectiveType: string | null
+  downlink: number | null
+  rtt: number | null
+}
+
+export interface Testimonial {
+  id: string;
+  clientName: string;
+  company?: string;
+  role?: string;
+  project?: string;
+  message: string;
+  rating?: number;
+  image?: string;
+  approved?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface CreateTestimonialData {
+  clientName: string;
+  company?: string;
+  role?: string;
+  project?: string;
+  message: string;
+  rating?: number;
+  image?: string;
+}
+
+export interface ToastOptions {
+  duration?: number;
+  position?: "top-right" | "top-left" | "bottom-right" | "bottom-left" | "top-center" | "bottom-center";
+}
+
+export interface ToastMessage {
+  title?: string;
+  description?: string;
+  type?: "success" | "error" | "info" | "warning";
+}

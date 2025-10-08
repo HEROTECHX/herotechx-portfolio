@@ -10,8 +10,8 @@ import {
   serverTimestamp,
   getDocs
 } from 'firebase/firestore';
-import { db } from '@/config/firebase';
-import type { AboutUser, CreateAboutUserData } from '@/types';
+import { db } from '../config/firebase';
+import type { AboutUser, CreateAboutUserData } from '../types';
 
 export function useAboutUserManager() {
   const [aboutUser, setAboutUser] = useState<AboutUser | null>(null);

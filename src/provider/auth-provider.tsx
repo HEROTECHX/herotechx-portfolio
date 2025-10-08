@@ -6,8 +6,8 @@ import {
   signOut,
   onAuthStateChanged
 } from 'firebase/auth';
-import { auth } from '@/config/firebase';
-import { AuthContext } from '@/context/auth-context';
+import { auth } from '../config/firebase';
+import { AuthContext } from '../context/auth-context';
 
 interface AuthProviderProps {
   children: ReactNode;

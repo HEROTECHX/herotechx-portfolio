@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useOutsideClick } from "@/hooks/use-outside-click";
+import { useOutsideClick } from "../hooks/use-outside-click";
 import { IconX } from "@tabler/icons-react";
-import { cn } from "@/lib/utils";
-import type { ExpandableCardProps } from "@/types";
+import { cn } from "../lib/utils";
+import type { ExpandableCardProps } from "../types";
 
 export const ExpandableCard: React.FC<ExpandableCardProps> = ({
   className,

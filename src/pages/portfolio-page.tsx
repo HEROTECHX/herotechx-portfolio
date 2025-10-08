@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Preloader, bentoData, BentoGrid, ExpandableCard } from "@/components/index";
-import { CardContext } from "@/context/card-context";
-import { cn } from "@/lib/utils";
+import { Preloader } from "../components/preloader";
+import { bentoData } from "../components/data";
+import { BentoGrid } from "../components/bento-grid";
+import { ExpandableCard } from "../components/expandable-bento-card";
+import { CardContext } from "../context/card-context";
+import { cn } from "../lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 
 export function PortfolioPage() {
