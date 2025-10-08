@@ -1,15 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    
+    <!-- IMPORTANT: Add this script FIRST, before anything else -->
+    <script>
+      (function() {
+        var redirect = new URLSearchParams(window.location.search).get('redirect');
+        if (redirect) {
+          // Remove the redirect parameter and update the URL
+          var newUrl = window.location.pathname + redirect;
+          history.replaceState(null, null, newUrl);
+        }
+      })();
+    </script>
+    
     <link rel="icon" type="image/svg+xml" href="/herotechx-portfolio/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nuhu Ibrahim</title>
-    <script type="module" crossorigin src="/herotechx-portfolio/assets/index-DClWD-CR.js"></script>
+    <script type="module" crossorigin src="/herotechx-portfolio/assets/index-nq8t5rOE.js"></script>
     <link rel="modulepreload" crossorigin href="/herotechx-portfolio/assets/rolldown-runtime-Cn8xt2Gj.js">
     <link rel="modulepreload" crossorigin href="/herotechx-portfolio/assets/vendor-CRWb_rwG.js">
-    <link rel="modulepreload" crossorigin href="/herotechx-portfolio/assets/firebase-BKR0nhcV.js">
-    <link rel="modulepreload" crossorigin href="/herotechx-portfolio/assets/vendor-other-DM0nNaUT.js">
+    <link rel="modulepreload" crossorigin href="/herotechx-portfolio/assets/firebase-BlGhDa8u.js">
+    <link rel="modulepreload" crossorigin href="/herotechx-portfolio/assets/vendor-other-BLbKALu2.js">
     <link rel="stylesheet" crossorigin href="/herotechx-portfolio/assets/index-Bab8Wepu.css">
   </head>
   <body>

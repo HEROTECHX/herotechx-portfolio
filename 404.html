@@ -4,10 +4,14 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-      // Store the path and redirect to index.html
-      sessionStorage.setItem('redirectPath', window.location.pathname + window.location.search + window.location.hash);
-      window.location.replace('/herotechx-portfolio/');
+      // Capture the path that was requested
+      var path = window.location.pathname.replace('/herotechx-portfolio', '');
+      
+      // Redirect to index.html with path as parameter
+      window.location.replace('/herotechx-portfolio/?redirect=' + encodeURIComponent(path));
     </script>
   </head>
-  <body></body>
+  <body>
+    <p>Redirecting...</p>
+  </body>
 </html>
