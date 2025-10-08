@@ -11,11 +11,11 @@ export default function App() {
       <AuthProvider>
         <Routes>
           {/* Public route without redirect */}
-          <Route path="/" element={<PortfolioPage />} />
+          <Route path="/portfolio/" element={<PortfolioPage />} />
 
           {/* Protected routes - require authentication */}
           <Route 
-            path="/admin-page" 
+            path="/portfolio/admin-page" 
             element={
               <ProtectedRoute>
                 <AdminPage />
