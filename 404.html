@@ -4,11 +4,33 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-      // Capture the path that was requested
-      var path = window.location.pathname.replace('/herotechx-portfolio', '');
+      // Single Page Apps for GitHub Pages
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
       
-      // Redirect to index.html with path as parameter
-      window.location.replace('/herotechx-portfolio/?redirect=' + encodeURIComponent(path));
+      // Store the intended path
+      var path = window.location.pathname;
+      var base = '/herotechx-portfolio';
+      
+      // Extract the route after the base
+      if (path.indexOf(base) === 0) {
+        path = path.substring(base.length);
+      }
+      
+      // Redirect to index with encoded path
+      if (path && path !== '/' && path !== '') {
+        sessionStorage.setItem('redirect', path + window.location.search + window.location.hash);
+      }
+      
+      window.location.replace(base + '/');
     </script>
   </head>
   <body>
