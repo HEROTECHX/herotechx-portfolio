@@ -4,31 +4,19 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-      // GitHub Pages SPA redirect handler
-      (function() {
-        var path = window.location.pathname;
-        var basePath = '/herotechx-portfolio';
-        
-        // If we're already at the base path, don't redirect
-        if (path === basePath || path === basePath + '/') {
-          return;
-        }
-        
-        // Extract the route after the base
-        var route = path.replace(basePath, '');
-        
-        // Clean up double slashes
-        route = route.replace(/\/+/g, '/');
-        
-        // Only redirect if there's an actual route
-        if (route && route !== '/' && route !== '') {
-          sessionStorage.setItem('redirect', route + window.location.search + window.location.hash);
-          window.location.replace(basePath + '/');
-        }
-      })();
+      // Store the path for React Router to handle
+      var pathSegmentsToKeep = 1;
+      var l = window.location;
+      
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
     </script>
   </head>
   <body>
-    <p>Redirecting...</p>
   </body>
 </html>
