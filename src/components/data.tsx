@@ -74,7 +74,6 @@ export const bentoData: BentoData[] = [
                 <li className="flex items-center space-x-2">
                   <span className="text-green-400">✓</span>
                   <SplitTextSix text="3D web experiences" whileInView/>
-                
                 </li>
                 <li className="flex items-center space-x-2">
                   <span className="text-green-400">✓</span>
@@ -96,7 +95,8 @@ export const bentoData: BentoData[] = [
                 
                 <p className="text-white/70 hover:text-white text-[8px] sm:text-xs lg:text-base font-rampart italic text-center relative px-6 sm:px-8 py-2 capitalize">
                   &quot;
-                  <SplitTextSix text={`"The best projects start with great conversations. Let's create something amazing together!"`} />
+                  {/* <SplitTextSix text={`"The best projects start with great conversations. Let's create something amazing together!"`} /> */}
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error ratione natus est.
                 </p>
               </motion.div>
             </motion.div>

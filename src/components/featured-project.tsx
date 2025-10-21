@@ -3,7 +3,7 @@ import { ProjectCard } from "../components/project-card";
 import { AnimatePresence, motion } from "motion/react";
 import { useRef, useState } from "react";
 import { ProjectModal } from "./project-model";
-import type { Project } from "../types"; // Make sure to import your Project type
+import type { Project } from "../types";
 
 export function FeaturedProject() {
   const { projects, loading, error, isOnline, usingCache, refetch } = useFeaturedProject();

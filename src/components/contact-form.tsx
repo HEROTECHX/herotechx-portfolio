@@ -11,7 +11,6 @@ import { IconBrandFiverr, IconBrandGithub, IconBrandLinkedin, IconBrandUpwork } 
 import { useToast } from "../hooks/use-toast";
 import type { FormData, FormErrors, FormspreeError } from "../types";
 import { motion } from "motion/react";
-import gsap from "gsap";
 import { SplitTextEleven, SplitTextNine, SplitTextOne } from "./split-text";
 
 export function ContactForm(): JSX.Element {
@@ -28,91 +27,6 @@ export function ContactForm(): JSX.Element {
   const { successToast, errorToast } = useToast();
   const formRef = useRef<HTMLDivElement>(null);
   const socialRef = useRef<HTMLDivElement>(null);
-  
-  // GSAP animations on mount
-  useEffect(() => {
-    if (formRef.current) {
-      const ctx = gsap.context(() => {
-        // Animate form fields
-        gsap.fromTo(
-          '.form-field',
-          {
-            opacity: 0,
-            x: -30,
-            scale: 0.95
-          },
-          {
-            opacity: 1,
-            x: 0,
-            scale: 1,
-            duration: 0.5,
-            stagger: 0.1,
-            ease: 'power3.out'
-          }
-        );
-
-        // Animate title
-        gsap.fromTo(
-          '.form-title',
-          {
-            opacity: 0,
-            y: -20
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: 'power2.out'
-          }
-        );
-
-        // Animate submit button
-        gsap.fromTo(
-          '.submit-btn',
-          {
-            opacity: 0,
-            y: 20
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            delay: 0.5,
-            ease: 'power2.out'
-          }
-        );
-      }, formRef);
-
-      return () => ctx.revert();
-    }
-  }, []);
-
-  // Animate social icons
-  useEffect(() => {
-    if (socialRef.current) {
-      const ctx = gsap.context(() => {
-        gsap.fromTo(
-          '.social-icon',
-          {
-            opacity: 0,
-            scale: 0,
-            rotation: -180
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            rotation: 0,
-            duration: 0.5,
-            stagger: 0.1,
-            delay: 0.8,
-            ease: 'back.out(1.7)'
-          }
-        );
-      }, socialRef);
-
-      return () => ctx.revert();
-    }
-  }, []);
   
   const validateForm = (): FormErrors => {
     const newErrors: FormErrors = {};
@@ -229,7 +143,6 @@ export function ContactForm(): JSX.Element {
           whileHover={{ scale: 1.05 }}
         >
           <SplitTextOne text="Let's Work Together" />
-          
         </motion.h3>
 
         <form onSubmit={handleFormSubmit} className="my-6 sm:my-8 space-y-4 sm:space-y-6">
@@ -420,7 +333,6 @@ export function ContactForm(): JSX.Element {
             className="text-xs sm:text-sm text-neutral-400 font-rampart text-effect-60"
           >
             <SplitTextNine text="Or reach out directly via email" />
-          
           </motion.p>
           
           <motion.button
@@ -452,7 +364,7 @@ export function ContactForm(): JSX.Element {
             </motion.a>
             
             <motion.a 
-              href="https://github.com/herotechx-commits"
+              href="https://github.com/herotechx"
               className="social-icon inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-600/10 hover:bg-gray-600/20 border border-gray-600/30 hover:border-gray-600/50 transition-all duration-300"
               target="_blank"
               rel="noopener noreferrer"

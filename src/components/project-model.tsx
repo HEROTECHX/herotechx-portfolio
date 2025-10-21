@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { IconX, IconExternalLink, IconBrandGithub } from "@tabler/icons-react";
 import type { Project } from "../types";
+import { SplitTextOne } from "./split-text";
 
 interface ProjectModalProps {
   project: Project;
@@ -36,7 +37,8 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
         onClick={handleBackdropClick}
         className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8"
       >
@@ -185,9 +187,11 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               transition={{ delay: 0.3 }}
               className="mb-8"
             >
-              <h3 className="text-xl font-semibold text-white mb-3">About Project</h3>
-              <p className="text-white/70 leading-relaxed text-sm md:text-base">
-                {project.longDescription || project.description}
+              <h3 className="text-xl font-semibold text-white mb-3 font-rampart ">
+                <SplitTextOne text="About Project" />
+              </h3>
+              <p className="text-white/70 leading-relaxed text-sm md:text-base font-aboreto">
+              <SplitTextOne text={project.longDescription || project.description} whileInView />
               </p>
             </motion.div>
 
@@ -198,7 +202,9 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               transition={{ delay: 0.4 }}
               className="mb-8"
             >
-              <h3 className="text-xl font-semibold text-white mb-3">Technologies Used</h3>
+              <h3 className="text-xl font-semibold text-white mb-3 font-rampart">
+                <SplitTextOne text="Technologies Used"/>
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {project.technologies?.map((tech: string, index: number) => (
                   <motion.span
@@ -206,10 +212,10 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.5 + index * 0.05 }}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    className="px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-lg text-white font-medium text-sm"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="px-4 py-2 bg-gradient-to-r font-aboreto from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-lg text-white font-medium text-sm"
                   >
-                    {tech}
+                    <SplitTextOne text={tech} whileInView/>
                   </motion.span>
                 ))}
               </div>

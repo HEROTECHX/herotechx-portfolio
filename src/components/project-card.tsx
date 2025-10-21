@@ -85,12 +85,13 @@ export function ProjectCard({
           className="text-white/90 hover:text-white cursor-default font-rampart text-effect-57 text-base sm:text-lg lg:text-xl line-clamp-2"
         >
           <SplitTextFive text={title} />
+        Lorem, ipsum.
         </motion.h4>
 
         {/* Description */}
         <div className="space-y-2">
           <p className={`text-white/60 font-aboreto text-effect-60 text-xs sm:text-sm leading-relaxed ${!isExpanded ? 'line-clamp-4' : ''}`}>
-              <SplitTextTwo text={displayDescription}/>
+            <SplitTextTwo text={displayDescription}/>
           </p>
           
           {shouldShowReadMore && (

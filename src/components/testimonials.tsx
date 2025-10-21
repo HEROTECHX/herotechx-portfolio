@@ -12,7 +12,7 @@ import { X, Star } from "lucide-react";
 import { useTestimonials } from "../hooks/use-testimonials";
 import { useToast } from "../hooks/use-toast";
 import { CompactFileUpload } from "./compact-file-upload";
-import { SplitTextFive, SplitTextOne, SplitTextSix, SplitTextTwelve } from "./split-text";
+import { SplitTextFive, SplitTextOne, SplitTextSeven, SplitTextSix, SplitTextTwelve } from "./split-text";
 
 export function Testimonials() {
   const [showReview, setShowReview] = useState(false);
@@ -102,7 +102,7 @@ export function Testimonials() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-rampart text-effect-8 capitalize text-center sm:text-left"
               >
-                <SplitTextSix text={"Client Testimonials"} />              
+                <SplitTextSeven text={"Client Testimonials"} />              
               </motion.h2>
               
               <motion.button
@@ -167,6 +167,8 @@ export function Testimonials() {
                               <div className="flex-1 min-w-0">
                                 <h4 className="font-semibold text-xs xs:text-sm sm:text-base text-neutral-100 font-rampart text-effect-1 truncate">
                                   <SplitTextSix text={testimonial.clientName} />
+
+                                  {testimonial.clientName}
                                 </h4>
                                 {testimonial.role && testimonial.company && (
                                   <p className="text-[10px] xs:text-xs text-neutral-400 truncate font-aboreto">
@@ -202,7 +204,7 @@ export function Testimonials() {
                         whileHover={{ x: 5 }}
                         className="text-xs font-aboreto sm:text-sm text-white leading-relaxed pl-0 xs:pl-11 sm:pl-16 italic"
                       >
-                        <SplitTextOne text={`"${testimonial.message}"`} />
+                        <SplitTextOne text={`"${testimonial.message}"`} whileInView />
                       </motion.p>
                     </motion.div>
                   ))}

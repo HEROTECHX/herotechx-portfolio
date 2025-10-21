@@ -3,7 +3,6 @@ import { motion } from 'motion/react'
 import { useRef } from 'react';
 import { SplitTextFive, SplitTextFour, SplitTextOne, SplitTextSix } from './split-text';
 
-
 export function AboutUser() {
   const { aboutUser, loading, error, isOnline, usingCache, refetch } = useAboutUser()
   const contentRef = useRef<HTMLDivElement>(null)
@@ -113,7 +112,8 @@ export function AboutUser() {
             <div className='flex-1 text-center sm:text-left py-2 sm:py-5 w-full'>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 lg:gap-10 items-center justify-center sm:justify-start">
                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-rampart text-white">
-                  <SplitTextFour text={aboutUser.name}  />
+                  {/* <SplitTextFour text={aboutUser.name}  /> */}
+                  Lorem, ipsum.
                 </h3>
                 
                 {aboutUser?.resume && (
@@ -172,7 +172,6 @@ export function AboutUser() {
           {/* Bio Section */}
           <div className="stagger-item">
             <p className="font-aboreto text-sm sm:text-base lg:text-xl text-white leading-relaxed " style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(255,255,255,0.2)" }}>
-              
               <SplitTextOne  text={aboutUser?.bio}  delay={3.3} />
             </p>
           </div>
@@ -180,7 +179,7 @@ export function AboutUser() {
           {/* Skills & Expertise Section */}
           <div className="stagger-item space-y-4 capitalize">
             <h4 className="text-base sm:text-lg font-semibold font-rampart text-effect-2 text-white" style={{ textShadow: "2px 2px 6px rgba(0,0,0,0.95), 0 0 15px rgba(255,255,255,0.25)" }}>
-                <SplitTextFour text={'Skills & Expertise'} whileInView/>
+              <SplitTextFour text={'Skills & Expertise'} whileInView/>
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {aboutUser?.skillCategories?.map((cate) => (
@@ -190,7 +189,6 @@ export function AboutUser() {
                   className="bg-white/5 rounded-lg p-4 border border-white/10 hover:border-purple-500/30 transition-all duration-300"
                 >
                   <h5 className="text-white/80 font-medium mb-3 font-rampart text-effect-70 text-sm sm:text-base" style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(255,255,255,0.2)" }}>
-                    {cate.title}
                     <SplitTextFive text={cate.title} stagger={2.2} whileInView/>
                   </h5>
                   <div className="space-y-2">
@@ -240,8 +238,7 @@ export function AboutUser() {
       >
         <motion.div whileHover={{ scale: 1.02 }} className="relative">
           <p className="text-white/70 hover:text-white text-[8px] sm:text-xs lg:text-base font-rampart italic text-center relative px-6 sm:px-8 py-2 capitalize" style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(255,255,255,0.3)" }}>
-            <SplitTextSix text={`"Code is poetry in motion, and I strive to write verses that both machines and humans can appreciate."`}  whileInView stagger={1.1}/>
-            
+            <SplitTextSix text={`Code is poetry in motion, and I strive to write verses that both machines and humans can appreciate.`}  whileInView stagger={1.1}/>
           </p>
         </motion.div>
       </motion.div>

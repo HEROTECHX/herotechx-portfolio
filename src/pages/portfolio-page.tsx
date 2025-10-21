@@ -26,7 +26,7 @@ export function PortfolioPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.5 }}
-          className="relative z-10 min-h-screen flex items-center justify-center p-4"
+          className="relative z-10 h-screen flex items-center justify-center p-4"
         >
           <BentoGrid
             className="max-w-6xl mt-20 md:mt-56 mx-auto md:auto-rows-[20rem]"

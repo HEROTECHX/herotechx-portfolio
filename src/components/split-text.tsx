@@ -590,7 +590,7 @@ export const SplitTextTwelve: React.FC<SplitTextProps> = ({
           }}
           className="inline-block"
         >
-          <TextEffect intensity={2.5} duration={11}>
+          <TextEffect>
             {word}
           </TextEffect>
         </motion.span>
