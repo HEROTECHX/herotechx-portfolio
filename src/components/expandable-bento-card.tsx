@@ -113,7 +113,7 @@ export const ExpandableCard: React.FC<ExpandableCardProps> = ({
                 className="font-bold font-rampart text-2xl md:text-5xl uppercase text-white mb-6"
                 style={{ textShadow: "3px 3px 6px rgba(0,0,0,0.95), 0 0 20px rgba(255,255,255,0.3)" }}
               >
-                <SplitTextTwelve text={title} />aa
+                <SplitTextTwelve text={title} />
               </motion.h2>
 
               {/* Content */}

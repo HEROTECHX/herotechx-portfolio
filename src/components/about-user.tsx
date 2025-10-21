@@ -112,8 +112,7 @@ export function AboutUser() {
             <div className='flex-1 text-center sm:text-left py-2 sm:py-5 w-full'>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 lg:gap-10 items-center justify-center sm:justify-start">
                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-rampart text-white">
-                  {/* <SplitTextFour text={aboutUser.name}  /> */}
-                  Lorem, ipsum.
+                  <SplitTextFour text={aboutUser.name}  />
                 </h3>
                 
                 {aboutUser?.resume && (

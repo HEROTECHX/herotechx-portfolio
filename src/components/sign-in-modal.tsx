@@ -84,18 +84,6 @@ export function SignInModal() {
             {loading ? <Loading /> : 'Sign In'}
           </button>
         </form>
-
-        {/* <div className="mt-4 text-center">
-          <button
-            onClick={() => setIsSignUp(!isSignUp)}
-            className="text-blue-600 hover:text-blue-500 text-sm"
-          >
-            {isSignUp 
-              ? 'Already have an account? Sign In' 
-              : "Don't have an account? Sign Up"
-            }
-          </button>
-        </div> */}
       </div>
     </div>
   );
