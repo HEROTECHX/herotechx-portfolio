@@ -8,6 +8,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import type { EditFormData, Testimonial } from "../types";
 import { useToast } from "../hooks/use-toast";
+import { TextArea } from "./ui/textarea";
 
 
 export function TestimonialsManager() {
@@ -241,7 +242,7 @@ export function TestimonialsManager() {
 
                     <LabelInputContainer>
                       <Label>Message</Label>
-                      <textarea
+                      <TextArea
                         value={editForm.message}
                         onChange={(e) => setEditForm(prev => ({ ...prev, message: e.target.value }))}
                         rows={4}

@@ -10,7 +10,7 @@ export function StarRating({ rating, onRatingChange }: { rating: number; onRatin
   
   return (
     <div 
-      className="flex gap-2"
+      className="flex gap-2 py-5"
       onMouseLeave={() => setHoverRating(0)}
     >
       {[1, 2, 3, 4, 5].map((star) => {

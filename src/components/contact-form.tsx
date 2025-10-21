@@ -1,4 +1,4 @@
-import  { useState, useEffect, type ChangeEvent, type FormEvent, type JSX } from "react";
+import { useState, useEffect, useRef, type ChangeEvent, type FormEvent, type JSX } from "react";
 import { useForm, ValidationError } from '@formspree/react';
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
@@ -6,11 +6,13 @@ import { BottomGradient } from "../components/ui/bottom-gradient";
 import { LabelInputContainer } from "../components/ui/label-input-container";
 import { TextArea } from "../components/ui/textarea";
 import { cn } from "../lib/utils";
-import { Send, Copy, Check } from "lucide-react";
+import { Send, Copy, Check, Mail } from "lucide-react";
 import { IconBrandFiverr, IconBrandGithub, IconBrandLinkedin, IconBrandUpwork } from "@tabler/icons-react";
 import { useToast } from "../hooks/use-toast";
 import type { FormData, FormErrors, FormspreeError } from "../types";
-
+import { motion } from "motion/react";
+import gsap from "gsap";
+import { SplitTextEleven, SplitTextNine, SplitTextOne } from "./split-text";
 
 export function ContactForm(): JSX.Element {
   const [state, handleSubmit] = useForm("mldwznve");
@@ -22,8 +24,95 @@ export function ContactForm(): JSX.Element {
   });
   
   const [errors, setErrors] = useState<FormErrors>({});
-  const [emailCopied, setEmailCopied] = useState(false);
+  const [emailCopied, setEmailCopied] = useState<boolean>(false);
   const { successToast, errorToast } = useToast();
+  const formRef = useRef<HTMLDivElement>(null);
+  const socialRef = useRef<HTMLDivElement>(null);
+  
+  // GSAP animations on mount
+  useEffect(() => {
+    if (formRef.current) {
+      const ctx = gsap.context(() => {
+        // Animate form fields
+        gsap.fromTo(
+          '.form-field',
+          {
+            opacity: 0,
+            x: -30,
+            scale: 0.95
+          },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: 'power3.out'
+          }
+        );
+
+        // Animate title
+        gsap.fromTo(
+          '.form-title',
+          {
+            opacity: 0,
+            y: -20
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: 'power2.out'
+          }
+        );
+
+        // Animate submit button
+        gsap.fromTo(
+          '.submit-btn',
+          {
+            opacity: 0,
+            y: 20
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            delay: 0.5,
+            ease: 'power2.out'
+          }
+        );
+      }, formRef);
+
+      return () => ctx.revert();
+    }
+  }, []);
+
+  // Animate social icons
+  useEffect(() => {
+    if (socialRef.current) {
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          '.social-icon',
+          {
+            opacity: 0,
+            scale: 0,
+            rotation: -180
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            delay: 0.8,
+            ease: 'back.out(1.7)'
+          }
+        );
+      }, socialRef);
+
+      return () => ctx.revert();
+    }
+  }, []);
   
   const validateForm = (): FormErrors => {
     const newErrors: FormErrors = {};
@@ -51,40 +140,46 @@ export function ContactForm(): JSX.Element {
     return newErrors;
   };
 
-  // Helper function to check if formspree has field errors
   const hasFormspreeError = (fieldName: string): boolean => {
-  return Array.isArray(state.errors) && 
-    state.errors.some((error: FormspreeError) => error.field === fieldName);
-};
+    return Array.isArray(state.errors) && 
+      state.errors.some((error: FormspreeError) => error.field === fieldName);
+  };
 
-  // Function to copy email to clipboard
   const copyEmailToClipboard = async (): Promise<void> => {
-    const email = "herotechx@gmail.com"; // Fixed the typo from "gmial" to "gmail"
+    const email = "herotechx@gmail.com";
     
     try {
       await navigator.clipboard.writeText(email);
       setEmailCopied(true);
       successToast('Email copied to clipboard!');
       
-      // Reset the copied state after 2 seconds
       setTimeout(() => {
         setEmailCopied(false);
       }, 2000);
-    } catch (err) {
+    } catch (clipboardError) {
+      console.error('Clipboard error:', clipboardError);
+      
       // Fallback for older browsers
       const textArea = document.createElement('textarea');
       textArea.value = email;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
       document.body.appendChild(textArea);
       textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
       
-      setEmailCopied(true);
-      successToast('Email copied to clipboard!');
-      
-      setTimeout(() => {
-        setEmailCopied(false);
-      }, 2000);
+      try {
+        document.execCommand('copy');
+        setEmailCopied(true);
+        successToast('Email copied to clipboard!');
+      } catch (fallbackError) {
+        console.error('Fallback copy error:', fallbackError);
+        errorToast('Failed to copy email');
+      } finally {
+        document.body.removeChild(textArea);
+        setTimeout(() => {
+          setEmailCopied(false);
+        }, 2000);
+      }
     }
   };
 
@@ -95,16 +190,14 @@ export function ContactForm(): JSX.Element {
     setErrors(formErrors);
     
     if (Object.keys(formErrors).length > 0) {
-      errorToast("error", "Please fix the errors below");
+      errorToast("Please fix the errors below");
       return;
     }
     
-    // Submit to Formspree
     await handleSubmit(e);
     successToast('Successfully Sent');
   };
 
-  // Handle success/error states from Formspree
   useEffect(() => {
     if (state.succeeded) {
       setFormData({ name: "", email: "", subject: "", message: "" });
@@ -114,28 +207,38 @@ export function ContactForm(): JSX.Element {
 
   useEffect(() => {
     if (Array.isArray(state.errors) && state.errors.length > 0) {
-      alert("There was an error sending your message. Please try again.");
+      errorToast("There was an error sending your message. Please try again.");
     }
-  }, [state.errors]);
+  }, [state.errors, errorToast]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Clear error when user starts typing
     if (errors[name as keyof FormErrors]) {
       setErrors(prev => ({ ...prev, [name]: "" }));
     }
   };
 
   return (
-    <div className="space-y-4">
-      <div className="shadow-input mx-auto w-full rounded-none p-4 md:rounded-2xl md:p-8">
-        <h3 className="text-xl font-semibold text-white mb-4">Let's Work Together</h3>        
+    <div className="space-y-4 px-4 sm:px-0" ref={formRef}>
+      <div className="shadow-input mx-auto w-full max-w-2xl rounded-none sm:rounded-2xl p-4 sm:p-6 md:p-8 bg-neutral-900/50 border border-neutral-800">
+        {/* Title with custom font */}
+        <motion.h3 
+          className="form-title text-xl sm:text-2xl lg:text-3xl font-rampart text-3d-retro mb-6 text-center capitalize"
+          whileHover={{ scale: 1.05 }}
+        >
+          <SplitTextOne text="Let's Work Together" />
+          
+        </motion.h3>
 
-        <form onSubmit={handleFormSubmit} className="my-8">
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="name">Full Name</Label>
+        <form onSubmit={handleFormSubmit} className="my-6 sm:my-8 space-y-4 sm:space-y-6">
+          {/* Name Field */}
+          <LabelInputContainer className="form-field">
+            <Label htmlFor="name" className="font-rampart text-effect-60 text-sm sm:text-base">
+              Full Name
+
+            </Label>
             <Input
               id="name"
               name="name"
@@ -144,12 +247,19 @@ export function ContactForm(): JSX.Element {
               value={formData.name}
               onChange={handleInputChange}
               className={cn(
-                errors.name || hasFormspreeError('name') ? "border-red-500" : ""
+                "transition-all duration-300",
+                errors.name || hasFormspreeError('name') ? "border-red-500 focus-visible:ring-red-500" : ""
               )}
               required
             />
             {errors.name && (
-              <span className="text-xs text-red-500 mt-1">{errors.name}</span>
+              <motion.span 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-xs text-red-500 mt-1 block"
+              >
+                {errors.name}
+              </motion.span>
             )}
             <ValidationError 
               prefix="Name" 
@@ -159,8 +269,11 @@ export function ContactForm(): JSX.Element {
             />
           </LabelInputContainer>
 
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="email">Email Address</Label>
+          {/* Email Field */}
+          <LabelInputContainer className="form-field">
+            <Label htmlFor="email" className="font-rampart text-effect-60 text-sm sm:text-base">
+              Email Address
+            </Label>
             <Input
               id="email"
               name="email"
@@ -169,12 +282,19 @@ export function ContactForm(): JSX.Element {
               value={formData.email}
               onChange={handleInputChange}
               className={cn(
-                errors.email || hasFormspreeError('email') ? "border-red-500" : ""
+                "transition-all duration-300",
+                errors.email || hasFormspreeError('email') ? "border-red-500 focus-visible:ring-red-500" : ""
               )}
               required
             />
             {errors.email && (
-              <span className="text-xs text-red-500 mt-1">{errors.email}</span>
+              <motion.span 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-xs text-red-500 mt-1 block"
+              >
+                {errors.email}
+              </motion.span>
             )}
             <ValidationError 
               prefix="Email" 
@@ -184,8 +304,11 @@ export function ContactForm(): JSX.Element {
             />
           </LabelInputContainer>
 
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="subject">Subject</Label>
+          {/* Subject Field */}
+          <LabelInputContainer className="form-field">
+            <Label htmlFor="subject" className="font-rampart text-effect-60 text-sm sm:text-base">
+              Subject
+            </Label>
             <Input
               id="subject"
               name="subject"
@@ -194,12 +317,19 @@ export function ContactForm(): JSX.Element {
               value={formData.subject}
               onChange={handleInputChange}
               className={cn(
-                errors.subject || hasFormspreeError('subject') ? "border-red-500" : ""
+                "transition-all duration-300",
+                errors.subject || hasFormspreeError('subject') ? "border-red-500 focus-visible:ring-red-500" : ""
               )}
               required
             />
             {errors.subject && (
-              <span className="text-xs text-red-500 mt-1">{errors.subject}</span>
+              <motion.span 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-xs text-red-500 mt-1 block"
+              >
+                {errors.subject}
+              </motion.span>
             )}
             <ValidationError 
               prefix="Subject" 
@@ -209,8 +339,11 @@ export function ContactForm(): JSX.Element {
             />
           </LabelInputContainer>
 
-          <LabelInputContainer className="mb-8">
-            <Label htmlFor="message">Message</Label>
+          {/* Message Field */}
+          <LabelInputContainer className="form-field">
+            <Label htmlFor="message" className="font-rampart text-effect-60 text-sm sm:text-base">
+              Message
+            </Label>
             <TextArea
               id="message"
               name="message"
@@ -219,13 +352,21 @@ export function ContactForm(): JSX.Element {
               value={formData.message}
               onChange={handleInputChange}
               className={cn(
-                "flex w-full border-none bg-gray-50 dark:bg-zinc-800 text-black dark:text-white shadow-input rounded-md px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 dark:placeholder-text-neutral-600 focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600 disabled:cursor-not-allowed disabled:opacity-50 dark:shadow-[0px_0px_1px_1px_#262626] group-hover/input:shadow-none transition duration-400 resize-none",
-                errors.message || hasFormspreeError('message') ? "border-red-500" : ""
+                "flex w-full border-none bg-zinc-800 text-white shadow-input rounded-md px-3 py-2 text-sm",
+                "placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500",
+                "disabled:cursor-not-allowed disabled:opacity-50 resize-none transition duration-400",
+                errors.message || hasFormspreeError('message') ? "border border-red-500 focus-visible:ring-red-500" : ""
               )}
               required
             />
             {errors.message && (
-              <span className="text-xs text-red-500 mt-1">{errors.message}</span>
+              <motion.span 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-xs text-red-500 mt-1 block"
+              >
+                {errors.message}
+              </motion.span>
             )}
             <ValidationError 
               prefix="Message" 
@@ -235,12 +376,17 @@ export function ContactForm(): JSX.Element {
             />
           </LabelInputContainer>
 
-          <button
+          {/* Submit Button */}
+          <motion.button
+            whileHover={{ scale: state.submitting ? 1 : 1.02 }}
+            whileTap={{ scale: state.submitting ? 1 : 0.98 }}
             className={cn(
-              "group/btn relative block h-12 w-full rounded-md font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] transition-all duration-200",
+              "submit-btn group/btn relative block h-12 w-full rounded-md font-medium text-white font-rampart",
+              "shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]",
+              "transition-all duration-200",
               state.submitting 
                 ? "bg-gray-400 cursor-not-allowed" 
-                : "bg-gradient-to-br from-black to-neutral-600 dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 hover:shadow-lg"
+                : "bg-gradient-to-br from-black to-neutral-600 hover:shadow-lg hover:shadow-purple-500/20"
             )}
             type="submit"
             disabled={state.submitting}
@@ -259,81 +405,84 @@ export function ContactForm(): JSX.Element {
               )}
             </span>
             <BottomGradient />
-          </button>
+          </motion.button>
         </form>
 
-        <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
+        {/* Divider */}
+        <div className="my-6 sm:my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
-        <div className="text-center">
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Or reach out directly via email
-          </p>
-          <button
-            onClick={copyEmailToClipboard}
-            className="group inline-flex items-center space-x-2 text-sm p-4 text-neutral-400 hover:text-neutral-200 transition-colors duration-200 cursor-pointer rounded-md hover:bg-gray-800"
+        {/* Email Section */}
+        <div className="text-center space-y-4">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="text-xs sm:text-sm text-neutral-400 font-rampart text-effect-60"
           >
-            <span>herotechx@gmail.com</span>
+            <SplitTextNine text="Or reach out directly via email" />
+          
+          </motion.p>
+          
+          <motion.button
+            onClick={copyEmailToClipboard}
+            whileHover={{ scale: 1.05, backgroundColor: "rgba(88, 28, 135, 0.1)" }}
+            whileTap={{ scale: 0.95 }}
+            className="group inline-flex items-center space-x-2 text-xs sm:text-sm p-3 sm:p-4 text-neutral-300 hover:text-white transition-all duration-200 cursor-pointer rounded-md border border-transparent hover:border-purple-500/30"
+          >
+            <Mail className="h-4 w-4 text-purple-400" />
+            <SplitTextEleven text="herotechx@gmail.com" whileInView />
             {emailCopied ? (
               <Check className="h-4 w-4 text-green-500" />
             ) : (
               <Copy className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
             )}
-          </button>
-          <div className="flex justify-center mt-5 gap-5">
-            <a 
-              href="https://www.linkedin.com/in/nuhu-ibrahim-128565383?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BEn5ZmykFQEKBnIyUXJy7cw%3D%3D"
-              className="inline-flex items-center space-x-2 text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-200"
+          </motion.button>
+
+          {/* Social Icons */}
+          <div ref={socialRef} className="flex justify-center items-center gap-4 sm:gap-6 mt-6">
+            <motion.a 
+              href="https://www.linkedin.com/in/nuhu-ibrahim-128565383"
+              className="social-icon inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600/10 hover:bg-blue-600/20 border border-blue-600/30 hover:border-blue-600/50 transition-all duration-300"
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.2, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
             >
-              <IconBrandLinkedin size={25} />
-            </a>
-            {/* <a 
-              href="https://wa.me/your-number" // Replace with actual WhatsApp link
-              className="inline-flex items-center space-x-2 text-sm text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 transition-colors duration-200"
+              <IconBrandLinkedin size={20} className="text-blue-400" />
+            </motion.a>
+            
+            <motion.a 
+              href="https://github.com/herotechx-commits"
+              className="social-icon inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-600/10 hover:bg-gray-600/20 border border-gray-600/30 hover:border-gray-600/50 transition-all duration-300"
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.2, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
             >
-              <IconBrandWhatsapp size={25} />
-            </a> */}
-            {/* <a 
-              href="https://herotechx@gmail.com" // Replace with actual email
-              className="inline-flex items-center space-x-2 text-sm text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors duration-200"
-            >
-              <IconBrandGoogle size={25}/>
-            </a> */}
-            <a 
-              href="https://github.com/herotechx-commits" // Replace with actual GitHub profile
-              className="inline-flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 transition-colors duration-200"
+              <IconBrandGithub size={20} className="text-gray-300" />
+            </motion.a>
+            
+            <motion.a 
+              href="https://fiverr.com/your-profile"
+              className="social-icon inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-600/10 hover:bg-green-600/20 border border-green-600/30 hover:border-green-600/50 transition-all duration-300"
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.2, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
             >
-              <IconBrandGithub size={25} />
-            </a>
-            {/* <a 
-              href="https://www.notion.so/4f740704069142079c0fa1a5d7e0e5fa" // Replace with actual Notion link
-              className="inline-flex items-center space-x-2 text-sm text-black hover:text-gray-800 dark:text-white dark:hover:text-gray-300 transition-colors duration-200"
+              <IconBrandFiverr size={20} className="text-green-400" />
+            </motion.a>
+            
+            <motion.a 
+              href="https://upwork.com/freelancers/your-profile"
+              className="social-icon inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-600/10 hover:bg-green-600/20 border border-green-600/30 hover:border-green-600/50 transition-all duration-300"
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.2, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
             >
-              <IconBrandNotion size={25}/>
-            </a> */}
-            <a 
-              href="https://fiverr.com/your-profile" // Replace with actual Fiverr profile
-              className="inline-flex items-center space-x-2 text-sm text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 transition-colors duration-200"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <IconBrandFiverr size={25}/>
-            </a>
-            <a 
-              href="https://upwork.com/freelancers/your-profile" // Replace with actual Upwork profile
-              className="inline-flex items-center space-x-2 text-sm text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 transition-colors duration-200"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <IconBrandUpwork size={25}/>
-            </a>
+              <IconBrandUpwork size={20} className="text-green-400" />
+            </motion.a>
           </div>
         </div>
       </div>

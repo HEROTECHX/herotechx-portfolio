@@ -62,10 +62,10 @@ export function CompactFileUpload({ onChange }: { onChange?: (files: File[]) => 
               />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-neutral-200 truncate">
+              <p className="text-sm font-medium text-white truncate">
                 {file.name}
               </p>
-              <p className="text-xs text-neutral-400">
+              <p className="text-xs text-white">
                 {(file.size / (1024 * 1024)).toFixed(2)} MB
               </p>
             </div>

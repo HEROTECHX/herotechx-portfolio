@@ -118,7 +118,10 @@ export interface ProjectCardProps {
   technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
-  status?: string;
+  category: string;
+  status: string;
+  features?: string[];
+  onSelect?: () => void;
 }
 
 
@@ -232,4 +235,45 @@ export interface ToastMessage {
   title?: string;
   description?: string;
   type?: "success" | "error" | "info" | "warning";
+}
+
+export interface TextEffectProps {
+  className?: string;
+  children?: ReactNode;
+  scaleAmount?: number;
+  intensity?: number;
+  staggerSpeed?: number;
+  duration?: number;
+}
+
+// types.ts
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  longDescription?: string; // For detailed view in modal
+  image: string;
+  technologies: string[];
+  liveUrl?: string;
+  githubUrl?: string;
+  category: string;
+  status: 'completed' | 'in-progress' | 'planned' | string; // More flexible status
+  features?: string[]; // For modal display
+  // Add any other fields you need
+}
+
+
+export interface ProjectModalProps {
+  project: Project;
+  onClose: () => void;
+}
+
+// If you're using a hook for fetching projects
+export interface UseFeaturedProjectReturn {
+  projects: Project[];
+  loading: boolean;
+  error: string | null;
+  isOnline: boolean;
+  usingCache: boolean;
+  refetch: () => void;
 }

@@ -1,18 +1,58 @@
+import {AnimatePresence, motion} from "motion/react"
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react"
+import { TextEffect } from "./text-effect";
+
+const SplitText: React.FC<{ text: string }> = ({ text }) => {
+  const words = text.split(" ");
+  
+  return (
+    <div className="inline-flex flex-wrap justify-center gap-x-2">
+      {words.map((word, i) => (
+        <motion.span
+          key={i}
+          initial={{ 
+            y: -500, 
+            opacity: 1,
+            rotate: Math.random() * -90 - 80 
+          }}
+          animate={{ 
+            y: 0, 
+            opacity: 1, 
+            rotate: 0 
+          }}
+          exit={{ 
+            y: 100, 
+            opacity: 0, 
+            rotate: Math.random() * 160 - 80 
+          }}
+          transition={{
+            duration: 2.7,
+            delay: i * 0.15,
+            ease: [0.68, -0.55, 0.265, 1.55]
+          }}
+          className="inline-block font-rampart"
+        >
+          <TextEffect intensity={2.5} duration={12}>
+            {word}
+          </TextEffect>
+        </motion.span>
+      ))}
+    </div>
+  );
+};
 
 export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const [currentText, setCurrentText] = useState(0);
   const texts = [
-    "hi, i'm nuhu ibrahim",
-    "a junior full stack engineer",
-    "welcome to my portfolio"
+    "Hi, I'm Nuhu Ibrahim",
+    "Creative Developer & Engineer",
+    "Welcome to My Portfolio"
   ];
 
   useEffect(() => {
-    const timer1 = setTimeout(() => setCurrentText(1), 2000);
-    const timer2 = setTimeout(() => setCurrentText(2), 4000);
-    const timer3 = setTimeout(() => onComplete(), 6000);
+    const timer1 = setTimeout(() => setCurrentText(1), 5000);
+    const timer2 = setTimeout(() => setCurrentText(2), 15000);
+    const timer3 = setTimeout(() => onComplete(), 25000);
 
     return () => {
       clearTimeout(timer1);
@@ -28,25 +68,19 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
       transition={{ duration: 0.8 }}
       className="fixed inset-0 z-50 flex items-center justify-center"
     >
-      <div className="text-center space-y-8">
+      <div className="text-center space-y-8 px-4">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentText}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6 }}
-            className="text-white"
+            className="text-2xl md:text-4xl lg:text-6xl font-bold mb-4"
           >
-            <h1 className="text-2xl capitalize md:text-4xl lg:text-6xl font-bold mb-4">
-              {texts[currentText]}
-            </h1>
+            <SplitText text={texts[currentText]} />
             {currentText === 2 && (
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="h-1 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 mx-auto"
+                transition={{ duration: 1, delay: 1.2 }}
+                className="h-1 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 mx-auto mt-2"
               />
             )}
           </motion.div>

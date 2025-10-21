@@ -1,3 +1,4 @@
+import { IconBrandKotlin, IconBrandPython, IconBrandReact } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import type { JSX } from "react";
 
@@ -21,7 +22,7 @@ export const AboutMeSkeleton: React.FC = () => {
         repeat: Infinity,
         repeatType: "reverse",
       }}
-      className="flex flex-1 w-full h-full min-h-[6rem] rounded-lg flex-col space-y-2 bg-gradient-to-br from-purple-500/20 to-blue-500/20 backdrop-blur-sm"
+      className="flex flex-1 w-full justify-center items-center h-full min-h-[6rem] rounded-lg flex-col space-y-2 bg-gradient-to-br from-purple-500/20 to-blue-500/20 backdrop-blur-sm"
       style={{
         background:
           "linear-gradient(-45deg, rgba(238, 119, 82, 0.3), rgba(231, 60, 126, 0.3), rgba(35, 166, 213, 0.3), rgba(35, 213, 171, 0.3))",
@@ -117,22 +118,22 @@ export const FeaturedProjectSkeleton = (): JSX.Element => {
 
   const skillCards = [
     {
-      title: "React & Java",
+      title: "React",
       gradient: "from-pink-500 to-violet-500",
       level: "Expert",
-      levelColor: "border-green-500/50 bg-green-500/20 text-green-300"
+      levelColor: "text-green-500"
     },
     {
-      title: "AI/ML",
+      title: "Python",
       gradient: "from-blue-500 to-cyan-500",
-      level: "Learning",
-      levelColor: "border-orange-500/50 bg-orange-500/20 text-orange-300"
+      level: "Advanced",
+      levelColor: "text-orange-500"
     },
     {
-      title: "Three.js & WebGL",
+      title: "Kotlin",
       gradient: "from-orange-500 to-yellow-500",
-      level: "Advanced",
-      levelColor: "border-blue-500/50 bg-blue-500/20 text-blue-300"
+      level: "Learning",
+      levelColor: "text-blue-500"
     }
   ];
 
@@ -145,121 +146,36 @@ export const FeaturedProjectSkeleton = (): JSX.Element => {
     >
       <motion.div
         variants={first}
-        className="h-full w-1/3 rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center"
+        className="h-full w-1/3 group rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center"
       >
-        <div className={`rounded-full h-10 w-10 bg-gradient-to-r ${skillCards[0].gradient}`}></div>
-        <p className="sm:text-sm text-xs text-center font-semibold text-white/80 mt-4">
+        <IconBrandReact className="h-10 w-10 font-aboreto text-blue-300/50 group-hover:text-blue-300"/>
+        <p className="font-aboreto  text-xs sm:text-xs md:text-xs lg:text-xl text-center font-semibold text-white mt-4">
           {skillCards[0].title}
         </p>
-        <p className={`${skillCards[0].levelColor} text-xs rounded-full px-2 py-0.5 mt-4`}>
+        <p className={`${skillCards[0].levelColor} font-aboreto text-effect-4 rounded-full text-[8px] sm:text-base md:text-base lg:text-xs px-2 py-0.5 mt-4`}>
           {skillCards[0].level}
         </p>
       </motion.div>
-      <motion.div className="h-full relative z-20 w-1/3 rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center">
-        <div className={`rounded-full h-10 w-10 bg-gradient-to-r ${skillCards[1].gradient}`}></div>
-        <p className="sm:text-sm text-xs text-center font-semibold text-white/80 mt-4">
+      <motion.div
+        className="h-full w-1/3 group rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center"
+      >
+        <IconBrandPython className="h-10 w-10 font-aboreto text-blue-300/50 group-hover:text-blue-300"/>
+        <p className="font-aboreto  text-xs sm:text-xs md:text-xs lg:text-xl text-center font-semibold text-white mt-4">
           {skillCards[1].title}
         </p>
-        <p className={`${skillCards[1].levelColor} text-xs rounded-full px-2 py-0.5 mt-4`}>
+        <p className={`${skillCards[1].levelColor} font-aboreto text-effect-4 rounded-full text-[8px] sm:text-base md:text-base lg:text-xs px-2 py-0.5 mt-4`}>
           {skillCards[1].level}
         </p>
       </motion.div>
       <motion.div
         variants={second}
-        className="h-full w-1/3 rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center"
+        className="h-full w-1/3 group rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center"
       >
-        <div className={`rounded-full h-10 w-10 bg-gradient-to-r ${skillCards[2].gradient}`}></div>
-        <p className="sm:text-sm text-xs text-center font-semibold text-white/80 mt-4">
+        <IconBrandKotlin className="h-10 w-10 font-aboreto text-blue-300/50 group-hover:text-blue-300"/>
+        <p className="font-aboreto  text-xs sm:text-xs md:text-xs lg:text-xl text-center font-semibold text-white mt-4">
           {skillCards[2].title}
         </p>
-        <p className={`${skillCards[2].levelColor} text-xs rounded-full px-2 py-0.5 mt-4`}>
-          {skillCards[2].level}
-        </p>
-      </motion.div>
-    </motion.div>
-  );
-};
-
-export const ExperienceProjectSkeleton = (): JSX.Element => {
-  const first = {
-    initial: {
-      x: 20,
-      rotate: -5,
-    },
-    hover: {
-      x: 0,
-      rotate: 0,
-    },
-  };
-  const second = {
-    initial: {
-      x: -20,
-      rotate: 5,
-    },
-    hover: {
-      x: 0,
-      rotate: 0,
-    },
-  };
-
-  const skillCards = [
-    {
-      title: "AWS Cloud",
-      gradient: "from-pink-500 to-violet-500",
-      level: "Expert",
-      levelColor: "border-green-500/50 bg-green-500/20 text-green-300"
-    },
-    {
-      title: "SQL",
-      gradient: "from-blue-500 to-cyan-500",
-      level: "Learning",
-      levelColor: "border-orange-500/50 bg-orange-500/20 text-orange-300"
-    },
-    {
-      title: "Data ",
-      gradient: "from-orange-500 to-yellow-500",
-      level: "Advanced",
-      levelColor: "border-blue-500/50 bg-blue-500/20 text-blue-300"
-    }
-  ];
-
-  return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      whileHover="hover"
-      className="flex flex-1 w-full h-full min-h-[6rem] flex-row space-x-2"
-    >
-      <motion.div
-        variants={first}
-        className="h-full w-1/3 rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center"
-      >
-        <div className={`rounded-full h-10 w-10 bg-gradient-to-r ${skillCards[0].gradient}`}></div>
-        <p className="sm:text-sm text-xs text-center font-semibold text-white/80 mt-4">
-          {skillCards[0].title}
-        </p>
-        <p className={`${skillCards[0].levelColor} text-xs rounded-full px-2 py-0.5 mt-4`}>
-          {skillCards[0].level}
-        </p>
-      </motion.div>
-      <motion.div className="h-full relative z-20 w-1/3 rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center">
-        <div className={`rounded-full h-10 w-10 bg-gradient-to-r ${skillCards[1].gradient}`}></div>
-        <p className="sm:text-sm text-xs text-center font-semibold text-white/80 mt-4">
-          {skillCards[1].title}
-        </p>
-        <p className={`${skillCards[1].levelColor} text-xs rounded-full px-2 py-0.5 mt-4`}>
-          {skillCards[1].level}
-        </p>
-      </motion.div>
-      <motion.div
-        variants={second}
-        className="h-full w-1/3 rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center"
-      >
-        <div className={`rounded-full h-10 w-10 bg-gradient-to-r ${skillCards[2].gradient}`}></div>
-        <p className="sm:text-sm text-xs text-center font-semibold text-white/80 mt-4">
-          {skillCards[2].title}
-        </p>
-        <p className={`${skillCards[2].levelColor} text-xs rounded-full px-2 py-0.5 mt-4`}>
+        <p className={`${skillCards[2].levelColor} font-aboreto text-effect-4 rounded-full text-[8px] sm:text-base md:text-base lg:text-xs px-2 py-0.5 mt-4 `}>
           {skillCards[2].level}
         </p>
       </motion.div>
@@ -287,12 +203,12 @@ export const TestimonialSkeleton: React.FC = () => {
         variants={variants}
         className="flex flex-row rounded-2xl border border-white/20 p-2 items-start space-x-2 bg-white/10 backdrop-blur-sm"
       >
-        <div className="rounded-full h-8 w-8 md:h-10 md-w-10 bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
+        <div className="rounded-full h-9 w-9 md:h-10 md-w-10 bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
         <div>
           <div className="flex text-yellow-400 text-xs mb-1">
             {"★".repeat(5)}
           </div>
-          <p className="text-xs text-white/70">
+          <p className="text-effect-8 text-white text-[7px] sm:text-xs md:text-xs lg:text-xs font-aboreto text-effect-61 ">
             "Outstanding React development skills and great communication throughout the project!"
           </p>
         </div>
@@ -302,12 +218,12 @@ export const TestimonialSkeleton: React.FC = () => {
         variants={variantsSecond}
         className="flex flex-row rounded-2xl border border-white/20 p-2 items-start space-x-2 bg-white/10 backdrop-blur-sm"
       >
-        <div className="rounded-full h-8 w-8 md:h-10 md-w-10 bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
+        <div className="rounded-full h-9 w-9 md:h-10 md-w-10 bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
         <div>
           <div className="flex text-yellow-400 text-xs mb-1">
             {"★".repeat(5)}
           </div>
-          <p className="text-xs text-white/70">
+          <p className="text-[7px] text-white sm:text-xs md:text-xs lg:text-xs font-aboreto text-effect-8">
             "Reliable, talented, and delivered exactly what we needed. Will work with again!"
           </p>
         </div>
@@ -336,8 +252,8 @@ export const ConnectSkeleton: React.FC = () => {
         variants={variants}
         className="flex flex-row rounded-2xl border border-white/20 p-2 items-start space-x-2 bg-white/10 backdrop-blur-sm"
       >
-        <div className="rounded-full h-8 w-8 md:h-10 md:w-10 bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
-        <p className="text-xs text-white/70">
+        <div className="rounded-full h-9 w-9 md:h-10 md:w-10 bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
+        <p className="text-[7px] sm:text-xs md:text-xs lg:text-xs text-white font-aboreto text-effect-6">
           Have a project in mind? Let&apos;s discuss your ideas and bring them to life with modern web technologies...
         </p>
       </motion.div>
@@ -345,7 +261,7 @@ export const ConnectSkeleton: React.FC = () => {
         variants={variantsSecond}
         className="flex flex-row rounded-full border border-white/20 p-2 items-center justify-end space-x-2 w-3/4 ml-auto bg-white/10 backdrop-blur-sm"
       >
-        <p className="text-xs text-white/70">Get in touch!</p>
+        <p className="font-aboreto text-white text-[7px] sm:text-xs md:text-xs lg:text-xs text-effect-6">Get in touch!</p>
         <div className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 shrink-0" />
       </motion.div>
     </motion.div>

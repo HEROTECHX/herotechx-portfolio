@@ -55,7 +55,7 @@ export function AdminPage() {
 
   return (
     <>
-      <div className="mx-auto flex w-full h-screen max-w-7xl flex-1 flex-col overflow-hidden rounded-md border md:flex-row border-neutral-700 bg-black">
+      <div className="mx-auto flex w-full h-screen max-w-7xl flex-1 flex-col overflow-hidden rounded-md border md:flex-row border-neutral-700 bg-gray-900">
         <Sidebar open={open} setOpen={setOpen}>
           <SidebarBody className="justify-between gap-10">
             <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
@@ -87,7 +87,7 @@ export function AdminPage() {
             <div>
               <SidebarLink
                 link={{
-                  label: 'Nuhu Ibrahim',
+                  label: user?.email || 'EMAIL ADDRESS',
                   icon: (
                     <img
                       src={user?.photoURL || ''}
@@ -136,7 +136,7 @@ const Logo: React.FC = () => {
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-medium capitalize whitespace-pre text-black dark:text-white"
+        className="font-medium uppercase whitespace-pre text-black dark:text-white"
       >
         herotechx portfolio
       </motion.span>

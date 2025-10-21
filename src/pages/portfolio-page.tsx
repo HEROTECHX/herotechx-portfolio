@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Preloader } from "../components/preloader";
+// import { Preloader } from "../components/preloader";
 import { bentoData } from "../components/data";
 import { BentoGrid } from "../components/bento-grid";
 import { ExpandableCard } from "../components/expandable-bento-card";
 import { CardContext } from "../context/card-context";
 import { cn } from "../lib/utils";
 import { AnimatePresence, motion } from "motion/react";
+import { Preloader } from "../components/preloader";
 
 export function PortfolioPage() {
   const [showPreloader, setShowPreloader] = useState(true);
@@ -17,6 +18,7 @@ export function PortfolioPage() {
       <AnimatePresence>
         {showPreloader && (
           <Preloader onComplete={handlePreloaderComplete} />
+          
         )}
       </AnimatePresence>
       {!showPreloader && (
@@ -40,7 +42,7 @@ export function PortfolioPage() {
                 icon={data.icon}
               />
             ))}
-          </BentoGrid> 
+          </BentoGrid>
         </motion.div>
       )}
       </CardContext.Provider>

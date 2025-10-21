@@ -1,8 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    
+    <!-- IMPORTANT: Add this script FIRST, before anything else -->
+    <script>
+      (function() {
+        var redirect = new URLSearchParams(window.location.search).get('redirect');
+        if (redirect) {
+          // Remove the redirect parameter and update the URL
+          var newUrl = window.location.pathname + redirect;
+          history.replaceState(null, null, newUrl);
+        }
+      })();
+    </script>
+    
+    <link rel="icon" type="image/svg+xml" href="./src/assets/user.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nuhu Ibrahim</title>
   </head>
