@@ -1,6 +1,7 @@
 import { IconBrandKotlin, IconBrandPython, IconBrandReact } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import type { JSX } from "react";
+import { SplitTextOne } from "./split-text";
 
 export const AboutMeSkeleton: React.FC = () => {
   const variants = {
@@ -149,8 +150,8 @@ export const FeaturedProjectSkeleton = (): JSX.Element => {
         className="h-full w-1/3 group rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center"
       >
         <IconBrandReact className="h-10 w-10 font-aboreto text-blue-300/50 group-hover:text-blue-300"/>
-        <p className="font-aboreto  text-xs sm:text-xs md:text-xs lg:text-xl text-center font-semibold text-white mt-4">
-          {skillCards[0].title}
+        <p className="font-aboreto  text-[9px] sm:text-xs md:text-xs lg:text-xl text-center font-semibold text-white mt-4">
+          <SplitTextOne whileInView text={skillCards[0].title} />
         </p>
         <p className={`${skillCards[0].levelColor} font-aboreto text-effect-4 rounded-full text-[8px] sm:text-base md:text-base lg:text-xs px-2 py-0.5 mt-4`}>
           {skillCards[0].level}
@@ -160,8 +161,8 @@ export const FeaturedProjectSkeleton = (): JSX.Element => {
         className="h-full w-1/3 group rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center"
       >
         <IconBrandPython className="h-10 w-10 font-aboreto text-blue-300/50 group-hover:text-blue-300"/>
-        <p className="font-aboreto  text-xs sm:text-xs md:text-xs lg:text-xl text-center font-semibold text-white mt-4">
-          {skillCards[1].title}
+        <p className="font-aboreto  text-[8px] sm:text-xs md:text-xs lg:text-xl text-center font-semibold text-white mt-4">
+          <SplitTextOne whileInView text={skillCards[1].title} />
         </p>
         <p className={`${skillCards[1].levelColor} font-aboreto text-effect-4 rounded-full text-[8px] sm:text-base md:text-base lg:text-xs px-2 py-0.5 mt-4`}>
           {skillCards[1].level}
@@ -172,8 +173,8 @@ export const FeaturedProjectSkeleton = (): JSX.Element => {
         className="h-full w-1/3 group rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 flex flex-col items-center justify-center"
       >
         <IconBrandKotlin className="h-10 w-10 font-aboreto text-blue-300/50 group-hover:text-blue-300"/>
-        <p className="font-aboreto  text-xs sm:text-xs md:text-xs lg:text-xl text-center font-semibold text-white mt-4">
-          {skillCards[2].title}
+        <p className="font-aboreto  text-[9px] sm:text-xs md:text-xs lg:text-xl text-center font-semibold text-white mt-4">
+          <SplitTextOne whileInView text={skillCards[2].title} />
         </p>
         <p className={`${skillCards[2].levelColor} font-aboreto text-effect-4 rounded-full text-[8px] sm:text-base md:text-base lg:text-xs px-2 py-0.5 mt-4 `}>
           {skillCards[2].level}
@@ -209,7 +210,7 @@ export const TestimonialSkeleton: React.FC = () => {
             {"★".repeat(5)}
           </div>
           <p className="text-effect-8 text-white text-[7px] sm:text-xs md:text-xs lg:text-xs font-aboreto text-effect-61 ">
-            "Outstanding React development skills and great communication throughout the project!"
+            <SplitTextOne text="Outstanding React development skills and great communication throughout the project!"  whileInView />            
           </p>
         </div>
       </motion.div>
@@ -221,10 +222,10 @@ export const TestimonialSkeleton: React.FC = () => {
         <div className="rounded-full h-9 w-9 md:h-10 md-w-10 bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
         <div>
           <div className="flex text-yellow-400 text-xs mb-1">
-            {"★".repeat(5)}
+            <SplitTextOne text={"★".repeat(4)}  whileInView />
           </div>
           <p className="text-[7px] text-white sm:text-xs md:text-xs lg:text-xs font-aboreto text-effect-8">
-            "Reliable, talented, and delivered exactly what we needed. Will work with again!"
+            <SplitTextOne text="Reliable, talented, and delivered exactly what we needed. Will work with again!" whileInView delay={2} stagger={2.2} />
           </p>
         </div>
       </motion.div>
@@ -254,14 +255,16 @@ export const ConnectSkeleton: React.FC = () => {
       >
         <div className="rounded-full h-9 w-9 md:h-10 md:w-10 bg-gradient-to-r from-purple-500 to-pink-500 shrink-0"></div>
         <p className="text-[7px] sm:text-xs md:text-xs lg:text-xs text-white font-aboreto text-effect-6">
-          Have a project in mind? Let&apos;s discuss your ideas and bring them to life with modern web technologies...
+          <SplitTextOne whileInView text="Have a project in mind? Let&apos;s discuss your ideas and bring them to life with modern web technologies..." />
         </p>
       </motion.div>
       <motion.div
         variants={variantsSecond}
         className="flex flex-row rounded-full border border-white/20 p-2 items-center justify-end space-x-2 w-3/4 ml-auto bg-white/10 backdrop-blur-sm"
       >
-        <p className="font-aboreto text-white text-[7px] sm:text-xs md:text-xs lg:text-xs text-effect-6">Get in touch!</p>
+        <p className="font-aboreto text-white text-[7px] sm:text-xs md:text-xs lg:text-xs text-effect-6">
+          <SplitTextOne text="Get in touch!" whileInView delay={3} />
+        </p>
         <div className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 shrink-0" />
       </motion.div>
     </motion.div>

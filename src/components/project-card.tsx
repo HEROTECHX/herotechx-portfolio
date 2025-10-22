@@ -29,11 +29,9 @@ export function ProjectCard({
 
   return (
     <motion.div 
-      // Remove layoutId from here to prevent shared layout animations
       whileHover={{ y: -5, scale: 1.02 }}
       onClick={onSelect}
-      className="group overflow-hidden relative bg-white/5 backdrop-blur-sm rounded-lg sm:rounded-xl border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 h-full flex flex-col cursor-pointer"
-    >
+      className="group overflow-hidden relative bg-white/5 backdrop-blur-sm rounded-lg sm:rounded-xl border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 h-full flex flex-col cursor-pointer">
       {/* Image Section */}
       <div className="aspect-video overflow-hidden bg-gradient-to-br from-purple-500/20 to-blue-500/20 relative">
         {image ? (
@@ -85,7 +83,6 @@ export function ProjectCard({
           className="text-white/90 hover:text-white cursor-default font-rampart text-effect-57 text-base sm:text-lg lg:text-xl line-clamp-2"
         >
           <SplitTextFive text={title} />
-        Lorem, ipsum.
         </motion.h4>
 
         {/* Description */}

@@ -142,7 +142,7 @@ export function ContactForm(): JSX.Element {
           className="form-title text-xl sm:text-2xl lg:text-3xl font-rampart text-3d-retro mb-6 text-center capitalize"
           whileHover={{ scale: 1.05 }}
         >
-          <SplitTextOne text="Let's Work Together" />
+          <SplitTextOne text="Let's Work Together" whileInView />
         </motion.h3>
 
         <form onSubmit={handleFormSubmit} className="my-6 sm:my-8 space-y-4 sm:space-y-6">

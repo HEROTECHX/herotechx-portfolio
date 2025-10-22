@@ -11,18 +11,18 @@ export interface BentoGridProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export interface BentoData {
-  title: string;
-  description: ReactNode;
   header: ReactNode;
   className: string;
   icon: ReactNode;
+  title: string;
+  description: string;
   content: ReactNode;
 }
 
 export interface ExpandableCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
   className?: string;
   title: string;
-  description: ReactNode;
+  description: string;
   header: ReactNode;
   content: ReactNode;
   icon: ReactNode;
@@ -124,6 +124,19 @@ export interface ProjectCardProps {
   onSelect?: () => void;
 }
 
+export interface SplitTextProps {
+  text: string;
+  whileInView?: boolean;
+  delay?: number;
+  stagger?: number;
+}
+
+export interface TextEffectProps {
+  children?: ReactNode;
+  className?: string;
+  intensity?: number;
+  duration?: number;
+}
 
 // Define types for form data
 export interface FormData {

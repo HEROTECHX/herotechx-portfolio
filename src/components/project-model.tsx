@@ -37,10 +37,10 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
+        exit={{ opacity: 0 }}
         transition={{ duration: 0.25, ease: "easeInOut" }}
         onClick={handleBackdropClick}
-        className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8"
+        className="fixed inset-0 z-50 flex items-start justify-center px-4 py-8 overflow-y-auto" // Changed to items-start
       >
         {/* Backdrop with blur */}
         <motion.div
@@ -52,8 +52,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         
         {/* Modal */}
         <motion.div
-          ref={modalRef} 
-          layoutId={`project-${project.id}`}
+          ref={modalRef}
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -63,8 +62,9 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             stiffness: 300,
             duration: 0.4
           }}
-          className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-white/20 shadow-2xl custom-scrollbar"
+          className="relative z-10 w-full max-w-4xl my-8 bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-white/20 shadow-2xl" // Removed max-h and overflow
         >
+
           {/* Custom Scrollbar Styles */}
           <style>{`
             .custom-scrollbar {
@@ -111,7 +111,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            className="relative h-64 md:h-80 overflow-hidden rounded-t-2xl"
+            className="relative h-64 w-full md:h-80 overflow-hidden rounded-t-2xl"
           >
             <img 
               src={project.image} 
@@ -131,8 +131,8 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                    {project.title}
+                  <h2 className="text-3xl md:text-4xl font-bold font-rampart text-white mb-2">
+                    <SplitTextOne text={project.title} />
                   </h2>
                   <div className="flex items-center gap-3 flex-wrap">
                     <span className="text-sm px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">
@@ -187,11 +187,11 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               transition={{ delay: 0.3 }}
               className="mb-8"
             >
-              <h3 className="text-xl font-semibold text-white mb-3 font-rampart ">
+              <h3 className="text-xl font-semibold text-white mb-3 font-rampart">
                 <SplitTextOne text="About Project" />
               </h3>
               <p className="text-white/70 leading-relaxed text-sm md:text-base font-aboreto">
-              <SplitTextOne text={project.longDescription || project.description} whileInView />
+                <SplitTextOne text={project.longDescription || project.description} whileInView />
               </p>
             </motion.div>
 
@@ -228,7 +228,9 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <h3 className="text-xl font-semibold text-white mb-3">Key Features</h3>
+                <h3 className="text-xl font-semibold text-white mb-3 font-rampart">
+                  <SplitTextOne text="Key Features" />
+                </h3>
                 <ul className="space-y-2">
                   {project.features.map((feature: string, index: number) => (
                     <motion.li
@@ -237,7 +239,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.6 + index * 0.1 }}
                       whileHover={{ x: 5 }}
-                      className="flex items-start gap-3 text-white/70 text-sm md:text-base"
+                      className="flex items-start gap-3 text-white/70 text-sm md:text-base font-aboreto"
                     >
                       <span className="text-purple-400 mt-1 flex-shrink-0">✓</span>
                       <span>{feature}</span>

@@ -1,12 +1,7 @@
 import { motion, useAnimation } from "motion/react";
 import { type ReactNode, useState } from "react";
+import type { TextEffectProps } from "../types";
 
-interface TextEffectProps {
-  children: ReactNode;
-  className?: string;
-  intensity?: number;
-  duration?: number;
-}
 
 const extractTextContent = (children: ReactNode): string => {
   if (children == null) return '';
@@ -22,7 +17,6 @@ const extractTextContent = (children: ReactNode): string => {
   return '';
 };
 
-// Individual character component
 const AnimatedChar = ({ 
   char, 
   intensity, 

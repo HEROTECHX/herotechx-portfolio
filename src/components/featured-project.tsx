@@ -1,16 +1,15 @@
+import { motion, AnimatePresence } from "motion/react";
 import { useFeaturedProject } from "../hooks/use-featured-project";
-import { ProjectCard } from "../components/project-card";
-import { AnimatePresence, motion } from "motion/react";
-import { useRef, useState } from "react";
-import { ProjectModal } from "./project-model";
 import type { Project } from "../types";
+import { useRef, useState } from "react";
+import { SplitTextTwo } from "./split-text";
+import { ProjectModal } from "./project-model";
+import { ProjectCard } from "./project-card";
 
 export function FeaturedProject() {
   const { projects, loading, error, isOnline, usingCache, refetch } = useFeaturedProject();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-
-  
 
   const handleProjectSelect = (project: Project) => {
     setSelectedProject(project);
@@ -72,18 +71,14 @@ export function FeaturedProject() {
         </div>
       )}
 
-      {/* Main Content */}
-      {!loading && (
+      {/* Main Content - Only show when no project is selected */}
+      {!selectedProject && !loading && (
         <div ref={contentRef}>
           {/* Projects Grid */}
           {projects.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 mb-8">
               {projects.map((project) => (
-                <motion.div 
-                  key={project.id} 
-                  className=""
-                  layoutId={`project-container-${project.id}`}
-                > 
+                <div key={project.id}>
                   <ProjectCard
                     id={project.id}
                     title={project.title}
@@ -97,20 +92,10 @@ export function FeaturedProject() {
                     features={project.features}
                     onSelect={() => handleProjectSelect(project)}
                   />
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
-
-          {/* Modal */}
-          <AnimatePresence mode="wait">
-            {selectedProject && (
-              <ProjectModal 
-                project={selectedProject} 
-                onClose={handleModalClose}
-              />
-            )}
-          </AnimatePresence>
 
           {/* Empty State */}
           {projects.length === 0 && (
@@ -146,22 +131,33 @@ export function FeaturedProject() {
               </motion.div>
             </motion.div>
           )}
+
+          {/* Quote Section - Only show when no project is selected */}
+          <motion.div 
+            className="quote-section bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg p-4 sm:p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
+            whileHover={{ scale: 1.01, boxShadow: "0 10px 30px rgba(168, 85, 247, 0.2)" }}
+          >
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="relative"
+            >
+              <p className="text-white/70 hover:text-white text-[7px] sm:text-xs lg:text-base font-rampart italic text-center relative px-6 sm:px-8 py-2 capitalize">
+                <SplitTextTwo text="Constantly learning and adapting to new technologies. The journey of a developer never ends!" whileInView delay={1} stagger={0.1}/>
+              </p>
+            </motion.div>
+          </motion.div>
         </div>
       )}
 
-      <motion.div 
-        className="quote-section bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg p-4 sm:p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
-        whileHover={{ scale: 1.01, boxShadow: "0 10px 30px rgba(168, 85, 247, 0.2)" }}
-      >
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          className="relative"
-        >
-          <p className="text-white/70 hover:text-white text-[8px] sm:text-xs lg:text-base font-rampart italic text-center relative px-6 sm:px-8 py-2 capitalize">
-            Constantly learning and adapting to new technologies. The journey of a developer never ends!
-          </p>
-        </motion.div>
-      </motion.div>
+      {/* Modal - This will show on top when a project is selected */}
+      <AnimatePresence mode="wait">
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject} 
+            onClose={handleModalClose}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

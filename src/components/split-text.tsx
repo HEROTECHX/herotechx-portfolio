@@ -1,7 +1,9 @@
+import type { SplitTextProps } from "../types";
 import { TextEffect } from "./text-effect";
 import { motion } from "motion/react";
+import { useInViewport } from "../hooks/use-viewport"; // Import the hook
 
-// Base animation configurations with proper types
+// Base animation configurations
 const animationConfigs = {
   fadeInUp: {
     initial: { y: 100, opacity: 0 },
@@ -73,14 +75,7 @@ const transitionConfigs = {
   }
 };
 
-interface SplitTextProps {
-  text: string;
-  whileInView?: boolean;
-  delay?: number;
-  stagger?: number;
-}
-
-// Original SplitTextOne with whileInView support
+// SplitTextOne with fixed viewport detection
 export const SplitTextOne: React.FC<SplitTextProps> = ({ 
   text, 
   whileInView = false,
@@ -88,9 +83,10 @@ export const SplitTextOne: React.FC<SplitTextProps> = ({
   stagger = 0.15 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
@@ -99,20 +95,15 @@ export const SplitTextOne: React.FC<SplitTextProps> = ({
             opacity: 0,
             rotate: Math.random() * -90 - 80 
           }}
-          {...(whileInView ? {
-            whileInView: { 
-              y: 0, 
-              opacity: 1, 
-              rotate: 0 
-            },
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: { 
-              y: 0, 
-              opacity: 1, 
-              rotate: 0 
-            }
-          })}
+          animate={whileInView ? (isInView ? { 
+            y: 0, 
+            opacity: 1, 
+            rotate: 0 
+          } : undefined) : { 
+            y: 0, 
+            opacity: 1, 
+            rotate: 0 
+          }}
           exit={{ 
             y: 100, 
             opacity: 0, 
@@ -134,7 +125,7 @@ export const SplitTextOne: React.FC<SplitTextProps> = ({
   );
 };
 
-// Original SplitTextTwo with whileInView support
+// SplitTextTwo with fixed viewport detection
 export const SplitTextTwo: React.FC<SplitTextProps> = ({ 
   text, 
   whileInView = false,
@@ -142,9 +133,10 @@ export const SplitTextTwo: React.FC<SplitTextProps> = ({
   stagger = 0.15 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
@@ -153,20 +145,15 @@ export const SplitTextTwo: React.FC<SplitTextProps> = ({
             opacity: 0.1,
             rotate: Math.random() * -90 - 80 
           }}
-          {...(whileInView ? {
-            whileInView: { 
-              x: 0, 
-              opacity: 1, 
-              rotate: 0 
-            },
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: { 
-              x: 0, 
-              opacity: 1, 
-              rotate: 0 
-            }
-          })}
+          animate={whileInView ? (isInView ? { 
+            x: 0, 
+            opacity: 1, 
+            rotate: 0 
+          } : undefined) : { 
+            x: 0, 
+            opacity: 1, 
+            rotate: 0 
+          }}
           exit={{ 
             x: 100, 
             opacity: 0, 
@@ -188,8 +175,7 @@ export const SplitTextTwo: React.FC<SplitTextProps> = ({
   );
 };
 
-// New SplitText components with different animations
-
+// Apply same pattern to all other components
 export const SplitTextThree: React.FC<SplitTextProps> = ({ 
   text, 
   whileInView = false,
@@ -197,19 +183,15 @@ export const SplitTextThree: React.FC<SplitTextProps> = ({
   stagger = 0.1 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
           initial={animationConfigs.fadeInUp.initial}
-          {...(whileInView ? {
-            whileInView: animationConfigs.fadeInUp.animate,
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: animationConfigs.fadeInUp.animate
-          })}
+          animate={whileInView ? (isInView ? animationConfigs.fadeInUp.animate : undefined) : animationConfigs.fadeInUp.animate}
           exit={animationConfigs.fadeInUp.exit}
           transition={{
             ...transitionConfigs.bouncy,
@@ -233,19 +215,15 @@ export const SplitTextFour: React.FC<SplitTextProps> = ({
   stagger = 0.08 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
           initial={animationConfigs.scaleIn.initial}
-          {...(whileInView ? {
-            whileInView: animationConfigs.scaleIn.animate,
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: animationConfigs.scaleIn.animate
-          })}
+          animate={whileInView ? (isInView ? animationConfigs.scaleIn.animate : undefined) : animationConfigs.scaleIn.animate}
           exit={animationConfigs.scaleIn.exit}
           transition={{
             ...transitionConfigs.elastic,
@@ -269,19 +247,15 @@ export const SplitTextFive: React.FC<SplitTextProps> = ({
   stagger = 0.12 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
           initial={animationConfigs.rotateIn.initial}
-          {...(whileInView ? {
-            whileInView: animationConfigs.rotateIn.animate,
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: animationConfigs.rotateIn.animate
-          })}
+          animate={whileInView ? (isInView ? animationConfigs.rotateIn.animate : undefined) : animationConfigs.rotateIn.animate}
           exit={animationConfigs.rotateIn.exit}
           transition={{
             ...transitionConfigs.bouncy,
@@ -305,19 +279,15 @@ export const SplitTextSix: React.FC<SplitTextProps> = ({
   stagger = 0.2 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
           initial={animationConfigs.flipIn.initial}
-          {...(whileInView ? {
-            whileInView: animationConfigs.flipIn.animate,
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: animationConfigs.flipIn.animate
-          })}
+          animate={whileInView ? (isInView ? animationConfigs.flipIn.animate : undefined) : animationConfigs.flipIn.animate}
           exit={animationConfigs.flipIn.exit}
           transition={{
             ...transitionConfigs.smooth,
@@ -341,19 +311,15 @@ export const SplitTextSeven: React.FC<SplitTextProps> = ({
   stagger = 0.07 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
           initial={animationConfigs.bounceIn.initial}
-          {...(whileInView ? {
-            whileInView: animationConfigs.bounceIn.animate,
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: animationConfigs.bounceIn.animate
-          })}
+          animate={whileInView ? (isInView ? animationConfigs.bounceIn.animate : undefined) : animationConfigs.bounceIn.animate}
           exit={animationConfigs.bounceIn.exit}
           transition={{
             ...transitionConfigs.elastic,
@@ -377,9 +343,10 @@ export const SplitTextEight: React.FC<SplitTextProps> = ({
   stagger = 0.15 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
@@ -387,18 +354,13 @@ export const SplitTextEight: React.FC<SplitTextProps> = ({
             ...animationConfigs.fadeInLeft.initial,
             scale: 0.5 
           }}
-          {...(whileInView ? {
-            whileInView: { 
-              ...animationConfigs.fadeInLeft.animate,
-              scale: 1 
-            },
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: { 
-              ...animationConfigs.fadeInLeft.animate,
-              scale: 1 
-            }
-          })}
+          animate={whileInView ? (isInView ? { 
+            ...animationConfigs.fadeInLeft.animate,
+            scale: 1 
+          } : undefined) : { 
+            ...animationConfigs.fadeInLeft.animate,
+            scale: 1 
+          }}
           exit={{ 
             ...animationConfigs.fadeInLeft.exit,
             scale: 0.5 
@@ -425,19 +387,15 @@ export const SplitTextNine: React.FC<SplitTextProps> = ({
   stagger = 0.09 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
           initial={animationConfigs.zoomIn.initial}
-          {...(whileInView ? {
-            whileInView: animationConfigs.zoomIn.animate,
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: animationConfigs.zoomIn.animate
-          })}
+          animate={whileInView ? (isInView ? animationConfigs.zoomIn.animate : undefined) : animationConfigs.zoomIn.animate}
           exit={animationConfigs.zoomIn.exit}
           transition={{
             ...transitionConfigs.quick,
@@ -461,9 +419,10 @@ export const SplitTextTen: React.FC<SplitTextProps> = ({
   stagger = 0.25 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
@@ -471,18 +430,13 @@ export const SplitTextTen: React.FC<SplitTextProps> = ({
             ...animationConfigs.fadeInRight.initial,
             y: -50 
           }}
-          {...(whileInView ? {
-            whileInView: { 
-              ...animationConfigs.fadeInRight.animate,
-              y: 0 
-            },
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: { 
-              ...animationConfigs.fadeInRight.animate,
-              y: 0 
-            }
-          })}
+          animate={whileInView ? (isInView ? { 
+            ...animationConfigs.fadeInRight.animate,
+            y: 0 
+          } : undefined) : { 
+            ...animationConfigs.fadeInRight.animate,
+            y: 0 
+          }}
           exit={{ 
             ...animationConfigs.fadeInRight.exit,
             y: 50 
@@ -509,9 +463,10 @@ export const SplitTextEleven: React.FC<SplitTextProps> = ({
   stagger = 0.05 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
@@ -519,18 +474,13 @@ export const SplitTextEleven: React.FC<SplitTextProps> = ({
             opacity: 0,
             filter: "blur(10px)"
           }}
-          {...(whileInView ? {
-            whileInView: { 
-              opacity: 1,
-              filter: "blur(0px)"
-            },
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: { 
-              opacity: 1,
-              filter: "blur(0px)"
-            }
-          })}
+          animate={whileInView ? (isInView ? { 
+            opacity: 1,
+            filter: "blur(0px)"
+          } : undefined) : { 
+            opacity: 1,
+            filter: "blur(0px)"
+          }}
           exit={{ 
             opacity: 0,
             filter: "blur(10px)"
@@ -558,9 +508,10 @@ export const SplitTextTwelve: React.FC<SplitTextProps> = ({
   stagger = 0.18 
 }) => {
   const words = text.split(" ");
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
   
   return (
-    <div className="inline-flex flex-wrap justify-center gap-x-2">
+    <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
       {words.map((word, i) => (
         <motion.span
           key={i}
@@ -568,18 +519,13 @@ export const SplitTextTwelve: React.FC<SplitTextProps> = ({
             ...animationConfigs.slideIn.initial,
             scale: 0.8 
           }}
-          {...(whileInView ? {
-            whileInView: { 
-              ...animationConfigs.slideIn.animate,
-              scale: 1 
-            },
-            viewport: { once: true, margin: "-50px" }
-          } : {
-            animate: { 
-              ...animationConfigs.slideIn.animate,
-              scale: 1 
-            }
-          })}
+          animate={whileInView ? (isInView ? { 
+            ...animationConfigs.slideIn.animate,
+            scale: 1 
+          } : undefined) : { 
+            ...animationConfigs.slideIn.animate,
+            scale: 1 
+          }}
           exit={{ 
             ...animationConfigs.slideIn.exit,
             scale: 0.8 

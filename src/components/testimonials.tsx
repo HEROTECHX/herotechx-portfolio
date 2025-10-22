@@ -91,11 +91,8 @@ export function Testimonials() {
             key="testimonials-list"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
             className="space-y-4 sm:space-y-6 w-full"
           >
-            {/* Header Section - Improved Mobile */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
               <motion.h2 
                 initial={{ opacity: 0, y: -20 }}
@@ -111,7 +108,7 @@ export function Testimonials() {
                 whileTap={{ scale: 0.95 }}
                 className="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm rounded-lg sm:rounded-xl bg-gradient-to-br from-green-500 to-blue-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 font-rampart uppercase tracking-wide whitespace-nowrap"
               >
-                ✍️ Write a Review
+                <SplitTextOne text="✍️ Write a Review"  />
               </motion.button>
             </div>
             
@@ -120,7 +117,6 @@ export function Testimonials() {
                 <div className="flex items-center justify-center py-12">
                   <div className="flex flex-col items-center gap-3">
                     <div className="w-10 h-10 border-2 border-purple-500/30 border-t-purple-500 rounded-full animate-spin" />
-                    <p className="text-xs sm:text-sm text-white/60 font-rampart">Loading testimonials...</p>
                   </div>
                 </div>
               ) : testimonials.length === 0 ? (
@@ -133,10 +129,10 @@ export function Testimonials() {
                     <Star className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 mx-auto text-yellow-500/30" />
                   </div>
                   <p className="text-sm sm:text-base md:text-lg text-neutral-400 font-rampart text-effect-6 mb-2 px-4">
-                    No testimonials yet
+                    <SplitTextFive text="No testimonials yet" />
                   </p>
                   <p className="text-xs sm:text-sm text-neutral-500 px-4">
-                    Be the first to leave a review!
+                    <SplitTextFive text="Be the first to leave a review!" />
                   </p>
                 </motion.div>
               ) : (
@@ -167,8 +163,6 @@ export function Testimonials() {
                               <div className="flex-1 min-w-0">
                                 <h4 className="font-semibold text-xs xs:text-sm sm:text-base text-neutral-100 font-rampart text-effect-1 truncate">
                                   <SplitTextSix text={testimonial.clientName} />
-
-                                  {testimonial.clientName}
                                 </h4>
                                 {testimonial.role && testimonial.company && (
                                   <p className="text-[10px] xs:text-xs text-neutral-400 truncate font-aboreto">
@@ -217,8 +211,6 @@ export function Testimonials() {
             key="review-form"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            transition={{ duration: 0.3 }}
             className="w-full"
           >
             <div className="shadow-input mx-auto w-full max-w-2xl rounded-xl sm:rounded-2xl bg-neutral-900/50 border border-neutral-800 p-4 sm:p-6">

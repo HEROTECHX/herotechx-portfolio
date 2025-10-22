@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconX } from "@tabler/icons-react";
-import { SplitTextTwelve } from "./split-text";
+import { SplitTextOne, SplitTextTwelve } from "./split-text";
 import type { ExpandableCardProps } from "../types";
 
 
@@ -90,9 +90,9 @@ export const ExpandableCard: React.FC<ExpandableCardProps> = ({
               transition={{ duration: 0.25, ease: "easeInOut" }}
               ref={containerRef}
               layoutId={`card-${title}`}
-              className="relative z-10 w-full max-w-5xl max-h-[90vh] overflow-y-auto overflow-x-hidden rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 p-4 md:p-10"
+              className="relative z-10 w-full max-w-5xl max-h-[90vh] min-h-[85vh] min-w-[300px] overflow-y-auto overflow-x-hidden rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 p-4 md:p-10"
               style={{
-                scrollbarWidth: "thin",
+                scrollbarWidth: "none",
                 scrollbarColor: "rgba(168, 85, 247, 0.5) rgba(255, 255, 255, 0.1)"
               }}
             >
@@ -110,10 +110,10 @@ export const ExpandableCard: React.FC<ExpandableCardProps> = ({
               {/* Title */}
               <motion.h2
                 layoutId={`title-${title}`}
-                className="font-bold font-rampart text-2xl md:text-5xl uppercase text-white mb-6"
+                className="font-bold font-rampart text-lg md:text-2xl lg:text-5xl  text-white capitalize mb-6"
                 style={{ textShadow: "3px 3px 6px rgba(0,0,0,0.95), 0 0 20px rgba(255,255,255,0.3)" }}
               >
-                <SplitTextTwelve text={title} />
+                <SplitTextTwelve text={title} whileInView/>
               </motion.h2>
 
               {/* Content */}
@@ -149,7 +149,7 @@ export const ExpandableCard: React.FC<ExpandableCardProps> = ({
           delay: 0.1,
           ease: [0.4, 0, 0.2, 1]
         }}
-        className={`rounded-xl overflow-hidden group/bento hover:shadow-xl transition duration-200 shadow-input p-4 justify-between flex flex-col space-y-4 cursor-pointer bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 ${className}`}
+        className={`rounded-xl overflow-hidden group/bento hover:shadow-xl transition duration-200 shadow-input p-4 justify-between flex flex-col space-y-4 cursor-pointer bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 min-w-[250px] ${className}`}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
@@ -163,20 +163,20 @@ export const ExpandableCard: React.FC<ExpandableCardProps> = ({
           </motion.div>
           <motion.div 
             layoutId={`title-${title}`}
-            className="font-bold font-rampart text-lg sm:text-base md:text-xl lg:text-2xl uppercase text-neutral-200 mb-2 mt-2"
+            className="font-bold font-rampart text-sm sm:text-base md:text-xl lg:text-2xl uppercase text-neutral-200 mb-2 mt-2"
             style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(255,255,255,0.3)" }}
           >
-            <SplitTextTwelve text={title} />
+            <SplitTextTwelve text={title} delay={2.6} stagger={0.6} whileInView/>
           </motion.div>
           <motion.div 
-            className="text-xs font-aboreto sm:text-xs md:text-xs lg:text-xl text-neutral-300"
+            className="text-[8px] font-aboreto sm:text-xs md:text-xs lg:text-xs text-neutral-300"
             style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.8), 0 0 8px rgba(255,255,255,0.15)" }}
             whileHover={{
               y: [0, -2, 0],
               transition: { duration: 0.3 }
             }}
           >
-            {description}
+            <SplitTextOne text={description} delay={1.3} whileInView />
           </motion.div>
         </div>
       </motion.div>

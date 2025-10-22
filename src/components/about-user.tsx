@@ -1,7 +1,7 @@
 import { useAboutUser } from '../hooks/use-about-user'
 import { motion } from 'motion/react'
 import { useRef } from 'react';
-import { SplitTextFive, SplitTextFour, SplitTextOne, SplitTextSix } from './split-text';
+import { SplitTextFive, SplitTextFour, SplitTextOne, SplitTextTen, SplitTextTwo } from './split-text';
 
 export function AboutUser() {
   const { aboutUser, loading, error, isOnline, usingCache, refetch } = useAboutUser()
@@ -83,7 +83,7 @@ export function AboutUser() {
                 clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
                 opacity: 1,
                 transition: {
-                  duration: 1.2,
+                  duration: 0.2,
                   ease: [0.65, 0, 0.35, 1]
                 }
               }}
@@ -163,15 +163,15 @@ export function AboutUser() {
               </div>
               
               <p className="font-rampart text-effect-6 text-sm sm:text-base lg:text-xl capitalize mt-2" style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(255,255,255,0.2)" }}>
-                <SplitTextSix text={aboutUser.title} delay={2.3} />
+                <SplitTextOne text={aboutUser.title} delay={2.3} />
               </p>
             </div>
           </div>
 
           {/* Bio Section */}
-          <div className="stagger-item">
+          <div className="my-16">
             <p className="font-aboreto text-sm sm:text-base lg:text-xl text-white leading-relaxed " style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(255,255,255,0.2)" }}>
-              <SplitTextOne  text={aboutUser?.bio}  delay={3.3} />
+              <SplitTextTen  text={aboutUser?.bio} whileInView />
             </p>
           </div>
           
@@ -198,7 +198,7 @@ export function AboutUser() {
                         style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.9), 0 0 10px rgba(34,197,94,0.4)" }}
                         whileHover={{
                           x: [0, 3, 0],
-                          transition: { duration: 0.3 }
+                          // transition: { duration: 0.3 }
                         }}
                       >
                         <SplitTextFive text={`• ${skill.name}`} whileInView />
@@ -230,17 +230,19 @@ export function AboutUser() {
           )}
         </motion.div>
       )}
-      
       <motion.div 
         className="quote-section bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg p-4 sm:p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
         whileHover={{ scale: 1.01, boxShadow: "0 10px 30px rgba(168, 85, 247, 0.2)" }}
       >
-        <motion.div whileHover={{ scale: 1.02 }} className="relative">
-          <p className="text-white/70 hover:text-white text-[8px] sm:text-xs lg:text-base font-rampart italic text-center relative px-6 sm:px-8 py-2 capitalize" style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(255,255,255,0.3)" }}>
-            <SplitTextSix text={`Code is poetry in motion, and I strive to write verses that both machines and humans can appreciate.`}  whileInView stagger={1.1}/>
-          </p>
-        </motion.div>
-      </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="relative"
+              >
+                <p className="text-white/70 hover:text-white text-[8px] sm:text-xs lg:text-base font-rampart italic text-center relative px-6 sm:px-8 py-2 capitalize">
+                  <SplitTextTwo text="Code is poetry in motion, and I strive to write verses that both machines and humans can appreciate." whileInView delay={1} stagger={0.2} />
+                </p>
+              </motion.div>
+            </motion.div>
     </div>
   )
 }
