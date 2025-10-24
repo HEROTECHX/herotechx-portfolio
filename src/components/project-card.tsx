@@ -18,19 +18,19 @@ export function ProjectCard({
 }: ProjectCardProps & { onSelect: () => void }) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   
-  const truncateText = (text: string, wordLimit: number = 50): string => {
+  const truncateText = (text: string, wordLimit: number = 10): string => {
     const words = text.split(' ');
     if (words.length <= wordLimit) return text;
     return words.slice(0, wordLimit).join(' ') + '...';
   };
 
-  const displayDescription = isExpanded ? description : truncateText(description, 50);
+  const displayDescription = isExpanded ? description : truncateText(description, 10);
   const shouldShowReadMore = description.split(' ').length > 15;
 
   return (
     <motion.div 
       whileHover={{ y: -5, scale: 1.02 }}
-      onClick={onSelect}
+      // onClick={onSelect}
       className="group overflow-hidden relative bg-white/5 backdrop-blur-sm rounded-lg sm:rounded-xl border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 h-full flex flex-col cursor-pointer">
       {/* Image Section */}
       <div className="aspect-video overflow-hidden bg-gradient-to-br from-purple-500/20 to-blue-500/20 relative">
@@ -87,7 +87,7 @@ export function ProjectCard({
 
         {/* Description */}
         <div className="space-y-2">
-          <p className={`text-white/60 font-aboreto text-effect-60 text-xs sm:text-sm leading-relaxed ${!isExpanded ? 'line-clamp-4' : ''}`}>
+          <p className={'text-white/60 font-aboreto text-effect-60 text-[12px] sm:text-sm lg:text-xs leading-relaxed line-clamp-4'}>
             <SplitTextTwo text={displayDescription}/>
           </p>
           
@@ -96,26 +96,17 @@ export function ProjectCard({
               onClick={(e) => {
                 e.stopPropagation();
                 setIsExpanded(!isExpanded);
+                onSelect()
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="text-[10px] sm:text-xs text-purple-400 hover:text-purple-300 transition-colors font-medium flex items-center gap-1"
             >
-              {isExpanded ? (
-                <>
-                  Show Less
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                  </svg>
-                </>
-              ) : (
-                <>
                   Read More
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
-                </>
-              )}
+            
             </motion.button>
           )}
         </div>

@@ -166,7 +166,7 @@ export const ExpandableCard: React.FC<ExpandableCardProps> = ({
             className="font-bold font-rampart text-sm sm:text-base md:text-xl lg:text-2xl uppercase text-neutral-200 mb-2 mt-2"
             style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(255,255,255,0.3)" }}
           >
-            <SplitTextTwelve text={title} delay={2.6} stagger={0.6} whileInView/>
+            <SplitTextTwelve text={title} delay={0.6} stagger={0.6} whileInView/>
           </motion.div>
           <motion.div 
             className="text-[8px] font-aboreto sm:text-xs md:text-xs lg:text-xs text-neutral-300"
@@ -176,7 +176,7 @@ export const ExpandableCard: React.FC<ExpandableCardProps> = ({
               transition: { duration: 0.3 }
             }}
           >
-            <SplitTextOne text={description} delay={1.3} whileInView />
+            <SplitTextOne text={description} delay={0.8} stagger={0.8} whileInView />
           </motion.div>
         </div>
       </motion.div>

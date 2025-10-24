@@ -58,19 +58,19 @@ const animationConfigs = {
 };
 
 const transitionConfigs = {
-  gentle: { duration: 0.8, ease: "easeInOut" as const },
+  gentle: { duration: 1.5, ease: "easeInOut" as const },
   bouncy: { 
     type: "spring" as const, 
-    damping: 10, 
-    stiffness: 100,
-    duration: 1.2 
+    damping: 15, 
+    stiffness: 150,
+    duration: 1.5 
   },
-  smooth: { duration: 1, ease: "easeOut" as const },
-  quick: { duration: 0.6, ease: "easeInOut" as const },
+  smooth: { duration: 1.5, ease: "easeOut" as const },
+  quick: { duration: 1.5, ease: "easeInOut" as const },
   elastic: { 
     type: "spring" as const, 
-    damping: 8, 
-    stiffness: 120,
+    damping: 12, 
+    stiffness: 150,
     duration: 1.5 
   }
 };
@@ -83,7 +83,9 @@ export const SplitTextOne: React.FC<SplitTextProps> = ({
   stagger = 0.15 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  // Create a unique key based on the text content for persistence
+  const persistKey = whileInView ? `splittext-one-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -110,7 +112,7 @@ export const SplitTextOne: React.FC<SplitTextProps> = ({
             rotate: Math.random() * 160 - 80 
           }}
           transition={{
-            duration: 2.7,
+            duration: 1.5,
             delay: delay + (i * stagger),
             ease: "easeOut" as const
           }}
@@ -133,7 +135,8 @@ export const SplitTextTwo: React.FC<SplitTextProps> = ({
   stagger = 0.15 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-two-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -183,7 +186,8 @@ export const SplitTextThree: React.FC<SplitTextProps> = ({
   stagger = 0.1 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-three-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -215,7 +219,8 @@ export const SplitTextFour: React.FC<SplitTextProps> = ({
   stagger = 0.08 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-four-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -247,7 +252,8 @@ export const SplitTextFive: React.FC<SplitTextProps> = ({
   stagger = 0.12 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-five-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -279,7 +285,8 @@ export const SplitTextSix: React.FC<SplitTextProps> = ({
   stagger = 0.2 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-six-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -311,7 +318,8 @@ export const SplitTextSeven: React.FC<SplitTextProps> = ({
   stagger = 0.07 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-seven-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -343,7 +351,8 @@ export const SplitTextEight: React.FC<SplitTextProps> = ({
   stagger = 0.15 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-eight-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -387,7 +396,8 @@ export const SplitTextNine: React.FC<SplitTextProps> = ({
   stagger = 0.09 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-nine-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -419,7 +429,8 @@ export const SplitTextTen: React.FC<SplitTextProps> = ({
   stagger = 0.25 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-ten-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -463,7 +474,8 @@ export const SplitTextEleven: React.FC<SplitTextProps> = ({
   stagger = 0.05 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-eleven-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">
@@ -508,7 +520,8 @@ export const SplitTextTwelve: React.FC<SplitTextProps> = ({
   stagger = 0.18 
 }) => {
   const words = text.split(" ");
-  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true });
+  const persistKey = whileInView ? `splittext-twelve-${text.slice(0, 30)}` : undefined;
+  const { ref, isInView } = useInViewport({ threshold: 0.5, once: true, persistKey });
   
   return (
     <div ref={ref} className="inline-flex flex-wrap justify-center gap-x-2">

@@ -5,8 +5,10 @@ import { AuthProvider } from './provider/auth-provider';
 import { ProtectedRoute } from './components/protected-route';
 import { ToastProvider } from './provider/toast-provider';
 import { NotFoundPage } from './pages/not-found-page';
+import { clearAllAnimationStates } from './lib/utils';
 
 export default function App() {
+  clearAllAnimationStates();
   return (
     <HashRouter>
       <AuthProvider>
